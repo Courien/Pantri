@@ -76,7 +76,7 @@ public class ThirdScreen extends AppCompatActivity {
                 Age.setText(Integer.toString(AgeInt));
             }
             double CalInfo = 66 + (6.23 * WeightToInt) + (12.7 * ((HeightToInt * 12) + Height2Tointt)) - (6.8 * AgeInt);
-            CalorieInfo.setText(Double.toString(CalInfo));
+            CalorieInfo.setText(Double.toString((int)CalInfo));
             Carbs.setText(View1);
             Fats.setText(View1);
             Viewer.setText(View);
