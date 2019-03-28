@@ -147,16 +147,6 @@
         app:layout_constraintEnd_toStartOf="@+id/result"
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text='"'
-        android:textAppearance="@style/TextAppearance.AppCompat"
-        android:textSize="50sp"
-        app:layout_constraintStart_toEndOf="@+id/height2"
-        app:layout_constraintTop_toBottomOf="@+id/weight" />
-
     <EditText
         android:id="@+id/height2"
         android:layout_width="0dp"
@@ -171,21 +161,9 @@
         app:layout_constraintStart_toStartOf="@+id/height"
         app:layout_constraintTop_toBottomOf="@+id/weight" />
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:text="'"
-        android:textAppearance="@style/TextAppearance.AppCompat"
-        android:textSize="50sp"
-        app:layout_constraintStart_toEndOf="@+id/height"
-        app:layout_constraintTop_toBottomOf="@+id/weight" />
-
     <EditText
         android:id="@+id/height"
-        android:layout_width="0dp"
+        android:layout_width="98dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"

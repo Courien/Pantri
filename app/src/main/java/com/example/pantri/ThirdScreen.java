@@ -51,9 +51,30 @@ public class ThirdScreen extends AppCompatActivity {
 
         if (Weight.getText()!=null && Height.getText()!=null && Age.getText()!=null) {
             int WeightToInt = Integer.parseInt(Weight.getText().toString());
+            if (WeightToInt > 300) {
+                WeightToInt = 300;
+                Weight.setText(Integer.toString(WeightToInt));
+
+            }
+
             int HeightToInt = Integer.parseInt(Height.getText().toString());
+            if (HeightToInt > 7)
+            {
+                HeightToInt = 7;
+                Height.setText(Integer.toString(HeightToInt));
+            }
             int Height2Tointt = Integer.parseInt(Height2.getText().toString());
+            if (Height2Tointt >11)
+            {
+                Height2Tointt = 11;
+                Height2.setText(Integer.toString(Height2Tointt));
+            }
             int AgeInt = Integer.parseInt(Age.getText().toString());
+            if (AgeInt >100)
+            {
+                AgeInt = 100;
+                Age.setText(Integer.toString(AgeInt));
+            }
             double CalInfo = 66 + (6.23 * WeightToInt) + (12.7 * ((HeightToInt * 12) + Height2Tointt)) - (6.8 * AgeInt);
             CalorieInfo.setText(Double.toString(CalInfo));
             Carbs.setText(View1);
@@ -79,6 +100,11 @@ public class ThirdScreen extends AppCompatActivity {
         EditText Weight = (EditText) findViewById(R.id.weight);
         if (Weight.getText() != null) {
             int WeighttoINt = Integer.parseInt(Weight.getText().toString());
+            if (WeighttoINt > 300) {
+                WeighttoINt = 300;
+                Weight.setText(Integer.toString(WeighttoINt));
+
+            }
             TextView Protien = (TextView) findViewById(R.id.result);
             TextView Carbs = (TextView) findViewById(R.id.result2);
             TextView Fats = (TextView) findViewById(R.id.result3);
