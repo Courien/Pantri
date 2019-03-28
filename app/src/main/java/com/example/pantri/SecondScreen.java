@@ -29,4 +29,10 @@ public class SecondScreen extends AppCompatActivity {
         Intent firstScreen = new Intent(this, FourthScreen.class);
         startActivity(firstScreen);
     }
+
+    public void send (View view){
+        Intent firstScreen = new Intent(this, MainActivity.class);
+        startActivity(firstScreen);
+    }
+
 }
