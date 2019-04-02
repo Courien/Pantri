@@ -7,11 +7,13 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ThirdScreen extends AppCompatActivity {
 
@@ -36,9 +38,39 @@ public class ThirdScreen extends AppCompatActivity {
         String View2 = " ";
         String View1 = " ";
         EditText Weight = (EditText) findViewById(R.id.weight);
+        try
+        {
+            Integer.parseInt(Weight.getText().toString());
+
+        }
+        catch (NumberFormatException nfe)
+        {
+            Weight.setText("0");
+        }
         EditText Height = (EditText) findViewById(R.id.height);
+        try{
+            Integer.parseInt(Height.getText().toString());
+        }
+        catch (NumberFormatException nfe)
+        {
+            Height.setText("0");
+        }
         EditText Height2  = (EditText) findViewById(R.id.height2);
+        try{
+            Integer.parseInt(Height2.getText().toString());
+        }
+        catch (NumberFormatException nfe)
+        {
+            Height2.setText("0");
+        }
         EditText Age = (EditText) findViewById(R.id.age);
+        try{
+            Integer.parseInt(Age.getText().toString());
+        }
+        catch (NumberFormatException nfe)
+        {
+            Age.setText("0");
+        }
         TextView CalorieInfo = (TextView) findViewById(R.id.result);
         TextView Carbs = (TextView) findViewById(R.id.result2);
         TextView Fats = (TextView) findViewById(R.id.result3);
@@ -64,19 +96,21 @@ public class ThirdScreen extends AppCompatActivity {
                 Height.setText(Integer.toString(HeightToInt));
             }
             int Height2Tointt = Integer.parseInt(Height2.getText().toString());
+
             if (Height2Tointt >11)
             {
                 Height2Tointt = 11;
                 Height2.setText(Integer.toString(Height2Tointt));
             }
             int AgeInt = Integer.parseInt(Age.getText().toString());
+
             if (AgeInt >100)
             {
                 AgeInt = 100;
                 Age.setText(Integer.toString(AgeInt));
             }
             double CalInfo = 66 + (6.23 * WeightToInt) + (12.7 * ((HeightToInt * 12) + Height2Tointt)) - (6.8 * AgeInt);
-            CalorieInfo.setText(Double.toString((int)CalInfo));
+            CalorieInfo.setText(Double.toString(Math.floor((CalInfo * 100) / 100)));
             Carbs.setText(View1);
             Fats.setText(View1);
             Viewer.setText(View);
@@ -98,13 +132,20 @@ public class ThirdScreen extends AppCompatActivity {
         String View2 = "Fats(g):";
 
         EditText Weight = (EditText) findViewById(R.id.weight);
-        if (Weight.getText() != null) {
-            int WeighttoINt = Integer.parseInt(Weight.getText().toString());
-            if (WeighttoINt > 300) {
-                WeighttoINt = 300;
-                Weight.setText(Integer.toString(WeighttoINt));
 
-            }
+        if (Weight.getText() != null) {
+
+          try
+          {
+              Integer.parseInt(Weight.getText().toString());
+
+          }
+          catch (NumberFormatException nfe)
+          {
+              Weight.setText("0");
+          }
+            int WeighttoINt = Integer.parseInt(Weight.getText().toString());
+
             TextView Protien = (TextView) findViewById(R.id.result);
             TextView Carbs = (TextView) findViewById(R.id.result2);
             TextView Fats = (TextView) findViewById(R.id.result3);

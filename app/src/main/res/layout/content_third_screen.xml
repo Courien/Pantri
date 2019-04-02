@@ -13,13 +13,11 @@
         android:id="@+id/age"
         android:layout_width="208dp"
         android:layout_height="45dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
         android:layout_marginTop="12dp"
         android:ems="10"
         android:hint=" Age"
         android:inputType="number"
-        android:text="0"
+        android:maxLength="3"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/height" />
 
@@ -41,64 +39,71 @@
         android:id="@+id/calorieCalc"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
         android:layout_marginBottom="56dp"
+        android:background="@color/colorAccent"
         android:onClick="Calculate"
         android:text="Calorie Calculator"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline6"
+        app:layout_constraintTop_toBottomOf="@+id/result3" />
 
     <Button
         android:id="@+id/button4"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:layout_marginBottom="56dp"
+        android:background="@color/colorAccent"
         android:onClick="Calculate2"
         android:text="Micronutrient Calculator"
+        android:textColor="@android:color/background_dark"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toStartOf="@+id/guideline6"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/result3" />
 
     <EditText
         android:id="@+id/result3"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
+        android:editable="false"
         android:ems="10"
         android:inputType="none"
-        android:text="Result"
         android:visibility="visible"
         app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/result2"
-        android:editable="false" />
+        app:layout_constraintTop_toBottomOf="@+id/result2" />
 
     <EditText
         android:id="@+id/result2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginLeft="4dp"
         android:layout_marginTop="24dp"
+        android:editable="false"
         android:ems="10"
         android:inputType="none"
-        android:text="Result"
         android:textColor="@android:color/background_dark"
         android:visibility="visible"
         app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/result"
-        android:editable="false" />
+        app:layout_constraintTop_toBottomOf="@+id/result" />
 
     <TextView
         android:id="@+id/identeifier"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:layout_marginEnd="48dp"
-        android:layout_marginRight="48dp"
+        android:layout_marginTop="44dp"
+        android:layout_marginEnd="64dp"
+        android:layout_marginRight="64dp"
+        android:editable="false"
         android:text=" "
         app:layout_constraintEnd_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/identifier2"
-        android:editable="false" />
+        app:layout_constraintTop_toBottomOf="@+id/identifier2" />
 
     <TextView
         android:id="@+id/identifier2"
@@ -116,16 +121,13 @@
         android:id="@+id/result"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="52dp"
+        android:editable="false"
         android:ems="10"
         android:inputType="none"
-        android:text="Result"
         android:textColor="@android:color/background_dark"
         app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/age"
-        android:editable="false" />
+        app:layout_constraintTop_toBottomOf="@+id/age" />
 
 
     <TextView
@@ -147,23 +149,21 @@
         android:layout_marginLeft="100dp"
         android:layout_marginTop="20dp"
         android:ems="10"
-        android:hint="Height (Feet)"
+        android:hint="Height (Inches)"
         android:inputType="number"
-        android:text="0"
+        android:maxLength="2"
         app:layout_constraintStart_toStartOf="@+id/height"
         app:layout_constraintTop_toBottomOf="@+id/weight" />
 
     <EditText
         android:id="@+id/height"
-        android:layout_width="98dp"
+        android:layout_width="106dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
         android:layout_marginTop="20dp"
         android:ems="10"
         android:hint="Height (Feet)"
         android:inputType="number"
-        android:text="0"
+        android:maxLength="1"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/weight" />
 
@@ -198,16 +198,12 @@
         android:id="@+id/weight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="96dp"
-        android:layout_marginEnd="28dp"
-        android:layout_marginRight="28dp"
+        android:layout_marginTop="92dp"
         android:ems="10"
+        android:hint="Weight(Pounds)"
         android:inputType="number"
-        android:text="0"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        android:maxLength="3"
+        android:text=" "
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -234,7 +230,15 @@
         android:layout_marginTop="16dp"
         android:onClick="sendMessage"
         android:text="Back"
+        android:textAppearance="@style/TextAppearance.AppCompat.Widget.Button"
         android:visibility="visible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
 </android.support.constraint.ConstraintLayout>
