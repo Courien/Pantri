@@ -7,7 +7,7 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".SecondScreen"
     tools:showIn="@layout/activity_second_screen"
-    android:background="@drawable/screenpic">
+    android:background="@drawable/backgroundgreen">
 
     <Button
         android:id="@+id/button8"
@@ -21,6 +21,7 @@
         android:layout_marginRight="8dp"
         android:onClick="send"
         android:text="Back"
+        android:textColor="@android:color/background_dark"
         android:visibility="visible"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
         app:layout_constraintHorizontal_bias="0.0"
@@ -33,6 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="76dp"
         android:layout_marginRight="76dp"
+        android:background="@color/colorAccent"
         android:onClick="message"
         android:text="Recipie Search"
         app:layout_constraintBottom_toTopOf="@+id/guideline5"
@@ -46,6 +48,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="76dp"
         android:layout_marginLeft="76dp"
+        android:background="@color/colorAccent"
         android:onClick="sendMessage"
         android:text="Calorie Calculator"
         app:layout_constraintBottom_toTopOf="@+id/guideline5"

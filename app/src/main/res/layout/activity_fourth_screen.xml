@@ -17,6 +17,7 @@
         android:layout_marginTop="16dp"
         android:onClick="sendMessage"
         android:text="Back"
+        android:textColor="@android:color/background_dark"
         android:visibility="visible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
