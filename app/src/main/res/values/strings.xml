@@ -5,6 +5,9 @@
     <string name="select_number">Select Number</string>
     <string name="pantri">PANTRI</string>
     <string name="api_info_here">API Info here.</string>
+    <string name="back">Back</string>
+    <string name="search_food">Search Food</string>
+    <string name="go">Go</string>
     <string-array name="numbers">
 
         <item>0</item>
