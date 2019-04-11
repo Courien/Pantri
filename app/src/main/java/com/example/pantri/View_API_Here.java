@@ -1,0 +1,108 @@
+package com.example.pantri;
+
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+
+public class View_API_Here extends AppCompatActivity
+{
+
+    private RecyclerView mRecylerView;
+    private Adapter mAdapter;
+    private ArrayList<Item> mItemList;
+    private RequestQueue mRequestQueue;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState)
+    {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_view__api__here);
+
+        mRecylerView = findViewById(R.id.recycler_view);
+        mRecylerView.setHasFixedSize(true);
+        mRecylerView.setLayoutManager(new LinearLayoutManager(this));
+
+        mItemList = new ArrayList<>();
+
+        mRequestQueue = Volley.newRequestQueue(this);
+        parseJSON();
+
+    }
+
+    private void parseJSON()
+    {
+        String Url = "https://api.edamam.com/search?q=chicken&app_id=8f438d16&app_key=816f5456dd70c634fd34a8c20ead557f&from=0&to=25&calories=591-722&health=alcohol-free";
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, Url, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response)
+            {
+                try
+                {
+
+                    JSONArray jsonArray = response.getJSONArray("hits");
+
+                    String allIngredients = "";
+
+                    for(int index = 0; index < jsonArray.length(); ++index)
+                    {
+                        JSONObject hit = jsonArray.getJSONObject(index);
+
+                        String creatorName = hit.getJSONObject("recipe").getString("label");
+                        String imageUrl = hit.getJSONObject("recipe").getString("image");
+
+
+                        JSONArray recipe = hit.getJSONObject("recipe").getJSONArray("ingredientLines");//.getString("ingredientLines");
+
+
+                        for(int index2 = 0; index2 < recipe.length(); ++index2)
+                        {
+                            String eachIngredient = recipe.getString(index2) + "\n";
+
+                            allIngredients += eachIngredient;
+                        }
+
+                        mItemList.add(new Item(imageUrl, creatorName, allIngredients));
+
+                        allIngredients = "";
+                    }
+
+                    mAdapter = new Adapter(View_API_Here.this, mItemList);
+                    mRecylerView.setAdapter(mAdapter);
+
+                } catch (JSONException e)
+                {
+
+                    e.printStackTrace();
+
+                }
+
+            }
+        }, new Response.ErrorListener()
+        {
+            @Override
+            public void onErrorResponse(VolleyError error)
+            {
+                error.printStackTrace();
+
+            }
+        });
+
+        mRequestQueue.add(request);
+    }
+
+}
