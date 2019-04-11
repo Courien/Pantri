@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".FourthScreen"></activity>
+        <activity android:name=".View_API_Here"></activity>
+        <activity android:name=".FourthScreen" />
         <activity
             android:name=".ThirdScreen"
             android:label="@string/title_activity_third_screen"

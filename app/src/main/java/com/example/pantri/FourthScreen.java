@@ -46,8 +46,10 @@ public class FourthScreen extends AppCompatActivity {
 
         if(FoodType.equals("chicken"))
         {
-            API_info process = new API_info();
-            process.execute();
+            //API_info process = new API_info();
+            //process.execute();
+            Intent View_API = new Intent(this, View_API_Here.class);
+            startActivity(View_API);
         }
 
 
