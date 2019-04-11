@@ -16,12 +16,9 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
         android:onClick="sendMessage"
-<<<<<<< HEAD
+
         android:text="Back"
         android:textColor="@android:color/background_dark"
-=======
-        android:text="@string/back"
->>>>>>> 6d221b9829c5ab587bd872d9f20e22c8fec6ea78
         android:visibility="visible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
