@@ -42,15 +42,16 @@ public class FourthScreen extends AppCompatActivity {
 
     public void StartSearch(View view, String FoodType)
     {
-        FoodType = FoodType.toLowerCase();
 
-        if(FoodType.equals("chicken"))
-        {
             //API_info process = new API_info();
             //process.execute();
+
             Intent View_API = new Intent(this, View_API_Here.class);
+
+            View_API.putExtra("FoodType", FoodSearching.getText().toString());
+
             startActivity(View_API);
-        }
+
 
 
     }
