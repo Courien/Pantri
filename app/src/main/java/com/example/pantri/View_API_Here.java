@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -43,6 +45,7 @@ public class View_API_Here extends AppCompatActivity
         mRequestQueue = Volley.newRequestQueue(this);
         parseJSON();
 
+
     }
 
     public void message (View view){
@@ -51,7 +54,7 @@ public class View_API_Here extends AppCompatActivity
     }
     private void parseJSON()
     {
-        String Url = "https://api.edamam.com/search?q=chicken&app_id=8f438d16&app_key=816f5456dd70c634fd34a8c20ead557f&from=0&to=25&calories=591-722&health=alcohol-free";
+        String Url = "https://api.edamam.com/search?q=&app_id=8f438d16&app_key=816f5456dd70c634fd34a8c20ead557f&from=0&to=25&calories=591-722&health=alcohol-free";
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, Url, null, new Response.Listener<JSONObject>() {
             @Override
