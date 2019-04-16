@@ -5,12 +5,14 @@ public class Item
     private String mIMageUrl;
     private String mCreator;
     private String mrecipe;
+    private int mcalories;
 
-    public Item(String imageUrl, String creator, String recipe)
+    public Item(String imageUrl, String creator, String recipe, int calories)
     {
         mIMageUrl = imageUrl;
         mCreator = creator;
         mrecipe = recipe;
+        mcalories = calories;
 
     }
 
@@ -30,4 +32,8 @@ public class Item
 
     }
 
+    public int getcalories()
+    {
+        return mcalories;
+    }
 }
