@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,6 +18,17 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder>
 {
     private Context mContext;
     private ArrayList<Item> mItemList;
+    private OnItemClickListener mListener;
+
+    public interface OnItemClickListener
+    {
+        void onItemClick(int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener)
+    {
+        mListener = listener;
+    }
 
     public Adapter(Context context, ArrayList<Item> itemList)
     {
@@ -39,11 +51,11 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder>
         Item currentItem = mItemList.get(i);
 
         String imageUrl = currentItem.getImageURL();
-        String creatorName = currentItem.getCreator();
+        String Meal = currentItem.getMeal();
         String recipe = currentItem.getRecipe();
         int calories = currentItem.getcalories();
 
-        holder.mTextViewCreator.setText(creatorName);
+        holder.mTextViewMeal.setText(Meal);
         holder.mTextViewRecipe.setText("Recipe: " + recipe);
         Picasso.with(mContext).load(imageUrl).fit().centerInside().into(holder.mImageView);
         holder.mTextViewCalories.setText("Calories: " + calories);
@@ -60,7 +72,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder>
     {
 
         public ImageView mImageView;
-        public TextView mTextViewCreator;
+        public TextView mTextViewMeal;
         public TextView mTextViewRecipe;
         public TextView mTextViewCalories;
 
@@ -69,9 +81,26 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder>
             super(itemView);
 
             mImageView = itemView.findViewById(R.id.image_view);
-            mTextViewCreator = itemView.findViewById(R.id.text_view_meal);
+            mTextViewMeal = itemView.findViewById(R.id.text_view_meal);
             mTextViewRecipe = itemView.findViewById(R.id.text_view_recipe);
             mTextViewCalories = itemView.findViewById(R.id._calories);
+
+            itemView.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    if (mListener != null)
+                    {
+                        int position = getAdapterPosition();
+
+                        if(position != RecyclerView.NO_POSITION)
+                        {
+                            mListener.onItemClick(position);
+                        }
+                    }
+                }
+            });
         }
     }
 }
