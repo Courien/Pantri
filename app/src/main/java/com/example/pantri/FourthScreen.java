@@ -12,17 +12,20 @@ public class FourthScreen extends AppCompatActivity {
 
     public static TextView APItext;
     private EditText FoodSearching;
+    private TextView NoSearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fourth_screen);
 
-        APItext = (TextView) findViewById(R.id.API_info_here);
+        //APItext = (TextView) findViewById(R.id.API_info_here);
 
         Button buttonGo = (Button) findViewById(R.id.button_Go);
 
         FoodSearching = (EditText) findViewById(R.id.Search_Food);
+
+        NoSearch = (TextView) findViewById(R.id._invalidEntry);
 
 
         buttonGo.setOnClickListener(new View.OnClickListener()
@@ -30,7 +33,15 @@ public class FourthScreen extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-                StartSearch(v, FoodSearching.getText().toString());
+                if(FoodSearching.getText().toString().equals(""))
+                {
+                    NoSearch.setText("Invalid entry");
+                }
+                else
+                {
+                    StartSearch(v);
+                }
+
             }
         });
     }
@@ -40,7 +51,7 @@ public class FourthScreen extends AppCompatActivity {
     }
 
 
-    public void StartSearch(View view, String FoodType)
+    public void StartSearch(View view)
     {
 
         //if(FoodType.equals("chicken"))
@@ -56,7 +67,51 @@ public class FourthScreen extends AppCompatActivity {
             startActivity(View_API);
         //}
 
-
-
     }
+
+    public void SearchChicken(View view)
+    {
+        FoodSearching.setText("Chicken");
+
+        Intent searchChicken = new Intent(this, View_API_Here.class);
+
+        searchChicken.putExtra("FoodType", FoodSearching.getText().toString());
+
+        startActivity(searchChicken);
+    }
+
+    public void SearchPasta(View view)
+    {
+        FoodSearching.setText("Pasta");
+
+        Intent searchPasta = new Intent(this, View_API_Here.class);
+
+        searchPasta.putExtra("FoodType", FoodSearching.getText().toString());
+
+        startActivity(searchPasta);
+    }
+
+    public void SearchSteak(View view)
+    {
+        FoodSearching.setText("Steak");
+
+        Intent searchSteak = new Intent(this, View_API_Here.class);
+
+        searchSteak.putExtra("FoodType", FoodSearching.getText().toString());
+
+        startActivity(searchSteak);
+    }
+
+    public void SearchShrimp(View view)
+    {
+        FoodSearching.setText("Shrimp");
+
+        Intent searchPizza = new Intent(this, View_API_Here.class);
+
+        searchPizza.putExtra("FoodType", FoodSearching.getText().toString());
+
+        startActivity(searchPizza);
+    }
+
+
 }

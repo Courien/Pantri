@@ -3,14 +3,14 @@ package com.example.pantri;
 public class Item
 {
     private String mIMageUrl;
-    private String mCreator;
+    private String mMeal;
     private String mrecipe;
     private int mcalories;
 
-    public Item(String imageUrl, String creator, String recipe, int calories)
+    public Item(String imageUrl, String meal, String recipe, int calories)
     {
         mIMageUrl = imageUrl;
-        mCreator = creator;
+        mMeal = meal;
         mrecipe = recipe;
         mcalories = calories;
 
@@ -21,9 +21,9 @@ public class Item
         return mIMageUrl;
     }
 
-    public String getCreator()
+    public String getMeal()
     {
-        return mCreator;
+        return mMeal;
     }
 
     public String getRecipe()

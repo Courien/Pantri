@@ -22,8 +22,13 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class View_API_Here extends AppCompatActivity
+public class View_API_Here extends AppCompatActivity implements Adapter.OnItemClickListener
 {
+
+    public static String EXTRA_URL = "imageUrl";
+    public static String EXTRA_MEAL = "meal";
+    public static String EXTRA_RECIPE = "recipe";
+    public static String EXTRA_CALORIES = "calories";
 
     private RecyclerView mRecylerView;
     private Adapter mAdapter;
@@ -51,7 +56,8 @@ public class View_API_Here extends AppCompatActivity
 
     }
 
-    public void message (View view){
+    public void message (View view)
+    {
         Intent firstScreen = new Intent(this, FourthScreen.class);
         startActivity(firstScreen);
     }
@@ -74,12 +80,12 @@ public class View_API_Here extends AppCompatActivity
                     {
                         JSONObject hit = jsonArray.getJSONObject(index);
 
-                        String creatorName = hit.getJSONObject("recipe").getString("label");
+                        String meal = hit.getJSONObject("recipe").getString("label");
                         String imageUrl = hit.getJSONObject("recipe").getString("image");
                         int calories = hit.getJSONObject("recipe").getInt("calories");
 
 
-                        JSONArray recipe = hit.getJSONObject("recipe").getJSONArray("ingredientLines");//.getString("ingredientLines");
+                        JSONArray recipe = hit.getJSONObject("recipe").getJSONArray("ingredientLines");
 
 
                         for(int index2 = 0; index2 < recipe.length(); ++index2)
@@ -89,13 +95,14 @@ public class View_API_Here extends AppCompatActivity
                             allIngredients += eachIngredient;
                         }
 
-                        mItemList.add(new Item(imageUrl, creatorName, allIngredients, calories));
+                        mItemList.add(new Item(imageUrl, meal, allIngredients, calories));
 
                         allIngredients = "";
                     }
 
                     mAdapter = new Adapter(View_API_Here.this, mItemList);
                     mRecylerView.setAdapter(mAdapter);
+                    mAdapter.setOnItemClickListener(View_API_Here.this);
 
                 } catch (JSONException e)
                 {
@@ -118,4 +125,18 @@ public class View_API_Here extends AppCompatActivity
         mRequestQueue.add(request);
     }
 
+    @Override
+    public void onItemClick(int position)
+    {
+           Intent detailIntent = new Intent(this, DetailActivity.class);
+
+           Item clickedItem = mItemList.get(position);
+
+           detailIntent.putExtra(EXTRA_URL, clickedItem.getImageURL());
+           detailIntent.putExtra(EXTRA_MEAL, clickedItem.getMeal());
+           detailIntent.putExtra(EXTRA_RECIPE, clickedItem.getRecipe());
+           detailIntent.putExtra(EXTRA_CALORIES, clickedItem.getcalories());
+
+           startActivity(detailIntent);
+    }
 }
