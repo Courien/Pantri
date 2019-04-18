@@ -36,7 +36,7 @@
         android:layout_marginRight="76dp"
         android:background="@color/colorAccent"
         android:onClick="message"
-        android:text="Recipie Search"
+        android:text="Recipe Search"
         app:layout_constraintBottom_toTopOf="@+id/guideline5"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
         app:layout_constraintStart_toStartOf="parent"
