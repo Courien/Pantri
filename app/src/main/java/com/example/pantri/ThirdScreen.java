@@ -155,12 +155,13 @@ public class ThirdScreen extends AppCompatActivity {
             double Protienintake = (WeighttoINt * 4) * .36;
             double Fatintake = (WeighttoINt * 9) * .30;
             double CarbIntake = (WeighttoINt * 4) * .45;
-            Protien.setText(Double.toString(Protienintake));
-            Carbs.setText((Double.toString(CarbIntake)));
-            Fats.setText(Double.toString(Fatintake));
+            int carbtoint = (int)CarbIntake;
+            Protien.setText(String.format("%.0f", Protienintake));
+            Carbs.setText(String.format("%.0f", CarbIntake));
+            Fats.setText(String.format("%.0f", Fatintake));
             Viewer1.setText(View);
-            Viewer2.setText(View2);
-            Viewer3.setText(View1);
+            Viewer2.setText(View1);
+            Viewer3.setText(View2);
             Carbs.setVisibility(Carbs.VISIBLE);
             Fats.setVisibility(Fats.VISIBLE);
         } else {
