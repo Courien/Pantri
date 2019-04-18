@@ -6,10 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-<<<<<<< HEAD
 import android.widget.EditText;
-=======
->>>>>>> 1051388d55564e43b733d76c5ce34a2c8f145b3d
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -60,11 +57,7 @@ public class View_API_Here extends AppCompatActivity
     }
     private void parseJSON()
     {
-<<<<<<< HEAD
-        String Url = "https://api.edamam.com/search?q=&app_id=8f438d16&app_key=816f5456dd70c634fd34a8c20ead557f&from=0&to=25&calories=591-722&health=alcohol-free";
-=======
         String Url = "https://api.edamam.com/search?q=" + FoodType + "&app_id=8f438d16&app_key=816f5456dd70c634fd34a8c20ead557f&from=0&to=25&calories=591-722&health=alcohol-free";
->>>>>>> 1051388d55564e43b733d76c5ce34a2c8f145b3d
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, Url, null, new Response.Listener<JSONObject>() {
             @Override
