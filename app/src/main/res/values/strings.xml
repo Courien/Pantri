@@ -24,4 +24,5 @@
         <item>11</item>
 
     </string-array>
+    <string name="title_activity_register_user">RegisterUser</string>
 </resources>

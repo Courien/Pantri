@@ -2,9 +2,12 @@ package com.example.pantri;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -17,19 +20,19 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class RegisterUser extends AppCompatActivity implements View.OnClickListener{
 
-    private Button buttonLogin;
+    private Button buttonRegister;
     private EditText editTextPassword;
     private EditText editTextUsername;
-    private TextView textViewRegister;
+    private TextView textViewLogin;
 
     private ProgressDialog progressDialog;
-    private FirebaseAuth mAuth;
+    FirebaseAuth mAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_register_user);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -37,21 +40,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         progressDialog = new ProgressDialog(this);
 
 
-        buttonLogin = (Button) findViewById(R.id.button);
+        buttonRegister = (Button) findViewById(R.id.register);
 
         editTextUsername = (EditText) findViewById(R.id.username);
         editTextPassword = (EditText) findViewById(R.id.password);
 
-        textViewRegister = (TextView) findViewById(R.id.register);
+        textViewLogin = (TextView) findViewById(R.id.login);
 
 
-        buttonLogin.setOnClickListener(this);
-        textViewRegister.setOnClickListener(this);
-
+        buttonRegister.setOnClickListener(this);
+        textViewLogin.setOnClickListener(this);
 
     }
-
-    private void signInUser(){
+    private void registerUser(){
         String username = editTextUsername.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
 
@@ -65,32 +66,37 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         {  Toast.makeText(this,"enter password", Toast.LENGTH_SHORT);
             return;
         }
-        progressDialog.setMessage("Logging user...");
+        progressDialog.setMessage("registering user...");
         progressDialog.show();
 
-        mAuth.signInWithEmailAndPassword(username,password)
+        mAuth.createUserWithEmailAndPassword(username,password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        progressDialog.dismiss();
-                        if (task.isSuccessful())
+                        if(task.isSuccessful())
                         {
-                            startActivity(new Intent((getApplicationContext()),SecondScreen.class));
+                            Toast.makeText(RegisterUser.this,"Registered user.", Toast.LENGTH_SHORT);
+
+                        }
+                        else   {
+                            Toast.makeText(RegisterUser.this,"Did not register user, please try again.", Toast.LENGTH_SHORT);
+
                         }
                     }
                 });
 
     }
+
     @Override
     public void onClick(View v) {
-        if(v == buttonLogin)
+        if(v == buttonRegister)
         {
-            signInUser();
+            registerUser();
         }
-        if(v == textViewRegister)
+        if(v == textViewLogin)
         {
-            Intent firstScreen = new Intent(this, RegisterUser.class);
-            startActivity(firstScreen);        }
-
+            Intent firstScreen = new Intent(this, MainActivity.class);
+            startActivity(firstScreen);
+        }
     }
 }
