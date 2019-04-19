@@ -34,7 +34,7 @@ public class DetailActivity extends AppCompatActivity {
 
         Picasso.with(this).load(imageUrl).fit().centerInside().into(imageView);
         textViewMeal.setText(meal);
-        textViewRecipe.setText("Recipe: " + recipe);
+        textViewRecipe.setText(recipe);
         textViewCalories.setText("Calories: " + calories);
     }
 }

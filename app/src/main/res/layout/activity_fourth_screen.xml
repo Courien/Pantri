@@ -4,8 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FourthScreen"
-    android:background="@drawable/greenback">
+    android:background="@drawable/greenback"
+    tools:context=".FourthScreen">
+
 
     <Button
         android:id="@+id/_Pasta"
@@ -28,7 +29,9 @@
         app:layout_constraintHorizontal_bias="0.033"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/_chicken"
-        app:layout_constraintVertical_bias="0.033" />
+        app:layout_constraintVertical_bias="0.033"
+
+    />
 
     <Button
         android:id="@+id/_steak"
@@ -118,7 +121,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
-            android:text="Quick Popular Searches"
+            android:text="Quick/Popular Searches"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="18sp"
             android:visibility="visible"

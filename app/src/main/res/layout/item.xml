@@ -27,16 +27,10 @@
             android:textSize="20sp"/>
 
         <TextView
-            android:id="@+id/text_view_recipe"
-            android:layout_width="wrap_content"
+            android:id="@+id/_clickOnCardToViewRecipe"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Recipe: "/>
-
-        <TextView
-            android:id="@+id/_calories"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Caloires: " />
+            android:text="Click anywhere on card to view recipe." />
 
 
     </LinearLayout>
