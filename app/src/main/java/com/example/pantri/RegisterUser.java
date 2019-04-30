@@ -28,6 +28,7 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
     private TextView textViewLogin;
 
     private ProgressDialog progressDialog;
+
     FirebaseAuth mAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,19 +56,20 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
     private void registerUser(){
         String username = editTextUsername.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
+        final Intent firstScreen = new Intent(this, MainActivity.class);
 
 
         if (TextUtils.isEmpty(username))
         {
-            Toast.makeText(this,"enter username", Toast.LENGTH_SHORT);
+            Toast.makeText(this,"enter username", Toast.LENGTH_SHORT).show();
             return;
         }
         if(TextUtils.isEmpty(password))
-        {  Toast.makeText(this,"enter password", Toast.LENGTH_SHORT);
+        {  Toast.makeText(this,"enter password", Toast.LENGTH_SHORT).show();
             return;
         }
-        progressDialog.setMessage("registering user...");
-        progressDialog.show();
+
+
 
         mAuth.createUserWithEmailAndPassword(username,password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -75,11 +77,12 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful())
                         {
-                            Toast.makeText(RegisterUser.this,"Registered user.", Toast.LENGTH_SHORT);
+                            Toast.makeText(RegisterUser.this,"Registered user.", Toast.LENGTH_SHORT).show();
+                            startActivity(firstScreen);
 
                         }
                         else   {
-                            Toast.makeText(RegisterUser.this,"Did not register user, please try again.", Toast.LENGTH_SHORT);
+                            Toast.makeText(RegisterUser.this,"Did not register user, please try again.", Toast.LENGTH_SHORT).show();
 
                         }
                     }
@@ -92,6 +95,7 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
         if(v == buttonRegister)
         {
             registerUser();
+
         }
         if(v == textViewLogin)
         {

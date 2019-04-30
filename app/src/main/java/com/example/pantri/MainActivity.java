@@ -58,11 +58,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if (TextUtils.isEmpty(username))
         {
-            Toast.makeText(this,"enter username", Toast.LENGTH_SHORT);
+            Toast.makeText(this,"enter username", Toast.LENGTH_SHORT).show();
             return;
         }
         if(TextUtils.isEmpty(password))
-        {  Toast.makeText(this,"enter password", Toast.LENGTH_SHORT);
+        {  Toast.makeText(this,"enter password", Toast.LENGTH_SHORT).show();
             return;
         }
         progressDialog.setMessage("Logging user...");
