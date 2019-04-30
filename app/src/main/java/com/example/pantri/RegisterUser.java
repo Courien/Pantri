@@ -25,8 +25,7 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
     private Button buttonRegister;
     private EditText editTextPassword;
     private EditText editTextUsername;
-    private TextView textViewLogin;
-
+    private Button backButton;
     private ProgressDialog progressDialog;
 
     FirebaseAuth mAuth;
@@ -43,14 +42,13 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
 
         buttonRegister = (Button) findViewById(R.id.register);
 
+        backButton = (Button) findViewById(R.id.Back);
         editTextUsername = (EditText) findViewById(R.id.username);
         editTextPassword = (EditText) findViewById(R.id.password);
 
-        textViewLogin = (TextView) findViewById(R.id.login);
 
 
         buttonRegister.setOnClickListener(this);
-        textViewLogin.setOnClickListener(this);
 
     }
     private void registerUser(){
@@ -97,7 +95,7 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
             registerUser();
 
         }
-        if(v == textViewLogin)
+        if(v == backButton)
         {
             Intent firstScreen = new Intent(this, MainActivity.class);
             startActivity(firstScreen);
