@@ -16,7 +16,7 @@
             android:id="@+id/image_view"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:src= "@mipmap/ic_launcher"/>
+            android:src="@mipmap/ic_launcher" />
 
         <TextView
             android:id="@+id/text_view_meal"
@@ -24,13 +24,13 @@
             android:layout_height="wrap_content"
             android:text="Meal"
             android:textColor="@android:color/black"
-            android:textSize="20sp"/>
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/text_view_recipe"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Recipe: "/>
+            android:text="Recipe: " />
 
         <TextView
             android:id="@+id/_calories"

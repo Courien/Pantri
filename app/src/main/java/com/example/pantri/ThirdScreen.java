@@ -83,8 +83,8 @@ public class ThirdScreen extends AppCompatActivity {
 
         if (Weight.getText()!=null && Height.getText()!=null && Age.getText()!=null) {
             int WeightToInt = Integer.parseInt(Weight.getText().toString());
-            if (WeightToInt > 300) {
-                WeightToInt = 300;
+            if (WeightToInt > 400) {
+                WeightToInt = 400;
                 Weight.setText(Integer.toString(WeightToInt));
 
             }
