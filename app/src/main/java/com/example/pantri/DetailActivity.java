@@ -12,6 +12,7 @@ import android.text.method.LinkMovementMethod;
 import android.text.method.MovementMethod;
 import android.text.style.ClickableSpan;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -37,6 +38,21 @@ public class DetailActivity extends AppCompatActivity {
         final int calories = getIntent().getIntExtra(EXTRA_CALORIES, 0);
         final String nutrition = getIntent().getStringExtra(EXTRA_NUTRITION);
         final String prepingSteps = getIntent().getStringExtra(EXTRA_PREPARATION_STEPS);
+        final String foodType = getIntent().getStringExtra("FoodType");
+
+
+        Button backButton = (Button) findViewById(R.id.BackButton_detail);
+        backButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Intent backButtonClicked = new Intent(DetailActivity.this, View_API_Here.class);
+                backButtonClicked.putExtra("FoodType", foodType);
+
+                startActivity(backButtonClicked);
+            }
+        });
 
 
         ImageView imageView = findViewById(R.id.image_view_detail);
@@ -49,7 +65,6 @@ public class DetailActivity extends AppCompatActivity {
         textViewRecipe.setText("Recipe: " + recipe);
 
 
-        //String nutritionString = "View nutrition here";
         SpannableString nutritionSpanString = new SpannableString(textViewNutrition.getText());
 
         ClickableSpan clickableNutrition = new ClickableSpan()

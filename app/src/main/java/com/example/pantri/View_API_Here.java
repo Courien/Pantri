@@ -146,6 +146,7 @@ public class View_API_Here extends AppCompatActivity implements Adapter.OnItemCl
         detailIntent.putExtra(EXTRA_CALORIES, clickedItem.getcalories());
         detailIntent.putExtra(EXTRA_NUTRITION, clickedItem.getNutrition());
         detailIntent.putExtra(EXTRA_PREPARATION_STEPS, clickedItem.getPreparationSteps());
+        detailIntent.putExtra("FoodType", FoodType);
 
         startActivity(detailIntent);
     }
