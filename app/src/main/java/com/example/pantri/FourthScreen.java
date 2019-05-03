@@ -23,10 +23,20 @@ public class FourthScreen extends AppCompatActivity {
 
         Button buttonGo = (Button) findViewById(R.id.button_Go);
 
+        Button clearButton = (Button) findViewById(R.id.clearButton);
+
         FoodSearching = (EditText) findViewById(R.id.Search_Food);
 
         NoSearch = (TextView) findViewById(R.id._invalidEntry);
 
+        clearButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                FoodSearching.setText("");
+                NoSearch.setText("");
+            }
+        });
 
         buttonGo.setOnClickListener(new View.OnClickListener()
         {
