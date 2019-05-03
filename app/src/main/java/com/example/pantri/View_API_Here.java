@@ -29,6 +29,8 @@ public class View_API_Here extends AppCompatActivity implements Adapter.OnItemCl
     public static String EXTRA_MEAL = "meal";
     public static String EXTRA_RECIPE = "recipe";
     public static String EXTRA_CALORIES = "calories";
+    public static String EXTRA_NUTRITION = "nutrition";
+    public static String EXTRA_PREPARATION_STEPS = "preparationSteps";
 
     private RecyclerView mRecylerView;
     private Adapter mAdapter;
@@ -52,7 +54,6 @@ public class View_API_Here extends AppCompatActivity implements Adapter.OnItemCl
 
         mRequestQueue = Volley.newRequestQueue(this);
         parseJSON();
-
 
     }
 
@@ -83,7 +84,14 @@ public class View_API_Here extends AppCompatActivity implements Adapter.OnItemCl
                         String meal = hit.getJSONObject("recipe").getString("label");
                         String imageUrl = hit.getJSONObject("recipe").getString("image");
                         int calories = hit.getJSONObject("recipe").getInt("calories");
+                        String prepingSteps = hit.getJSONObject("recipe").getString("url");
 
+                        StringBuilder nutrition = new StringBuilder();
+                        nutrition.append(hit.getJSONObject("recipe").getJSONObject("totalNutrients").getJSONObject("PROCNT").getString("label"));
+                        nutrition.append(": ");
+                        nutrition.append(hit.getJSONObject("recipe").getJSONObject("totalNutrients").getJSONObject("PROCNT").getInt("quantity"));
+                        nutrition.append(" ");
+                        nutrition.append(hit.getJSONObject("recipe").getJSONObject("totalNutrients").getJSONObject("PROCNT").getString("unit"));
 
                         JSONArray recipe = hit.getJSONObject("recipe").getJSONArray("ingredientLines");
 
@@ -95,7 +103,7 @@ public class View_API_Here extends AppCompatActivity implements Adapter.OnItemCl
                             allIngredients += eachIngredient;
                         }
 
-                        mItemList.add(new Item(imageUrl, meal, allIngredients, calories));
+                        mItemList.add(new Item(imageUrl, meal, allIngredients, calories, nutrition.toString(), prepingSteps));
 
                         allIngredients = "";
                     }
@@ -136,6 +144,8 @@ public class View_API_Here extends AppCompatActivity implements Adapter.OnItemCl
         detailIntent.putExtra(EXTRA_MEAL, clickedItem.getMeal());
         detailIntent.putExtra(EXTRA_RECIPE, clickedItem.getRecipe());
         detailIntent.putExtra(EXTRA_CALORIES, clickedItem.getcalories());
+        detailIntent.putExtra(EXTRA_NUTRITION, clickedItem.getNutrition());
+        detailIntent.putExtra(EXTRA_PREPARATION_STEPS, clickedItem.getPreparationSteps());
 
         startActivity(detailIntent);
     }

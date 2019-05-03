@@ -21,9 +21,9 @@ public class Nutrients extends AppCompatActivity {
         setContentView(R.layout.activity_nutrients);
 
 
-        final String preperationSteps = getIntent().getStringExtra("PrepSteps");
-        int calories = getIntent().getIntExtra("calories", 0);
-        String nutrition = getIntent().getStringExtra("nutrition");
+        final String preparationSteps = getIntent().getStringExtra("preparationSteps");
+        int calories = getIntent().getIntExtra("calorie", 0);
+        String nutrition = getIntent().getStringExtra("nutrients");
 
 
         TextView nutrientText = (TextView) findViewById(R.id. Nutrients);
@@ -44,7 +44,7 @@ public class Nutrients extends AppCompatActivity {
 
                 setContentView(goToWeb);
 
-                goToWeb.loadUrl(preperationSteps);
+                goToWeb.loadUrl(preparationSteps);
             }
 
             @Override
