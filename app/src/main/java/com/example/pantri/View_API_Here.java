@@ -128,15 +128,15 @@ public class View_API_Here extends AppCompatActivity implements Adapter.OnItemCl
     @Override
     public void onItemClick(int position)
     {
-           Intent detailIntent = new Intent(this, DetailActivity.class);
+        Intent detailIntent = new Intent(this, DetailActivity.class);
 
-           Item clickedItem = mItemList.get(position);
+        Item clickedItem = mItemList.get(position);
 
-           detailIntent.putExtra(EXTRA_URL, clickedItem.getImageURL());
-           detailIntent.putExtra(EXTRA_MEAL, clickedItem.getMeal());
-           detailIntent.putExtra(EXTRA_RECIPE, clickedItem.getRecipe());
-           detailIntent.putExtra(EXTRA_CALORIES, clickedItem.getcalories());
+        detailIntent.putExtra(EXTRA_URL, clickedItem.getImageURL());
+        detailIntent.putExtra(EXTRA_MEAL, clickedItem.getMeal());
+        detailIntent.putExtra(EXTRA_RECIPE, clickedItem.getRecipe());
+        detailIntent.putExtra(EXTRA_CALORIES, clickedItem.getcalories());
 
-           startActivity(detailIntent);
+        startActivity(detailIntent);
     }
 }
