@@ -47,6 +47,7 @@
         android:layout_marginBottom="8dp"
         android:clickable="true"
         android:text="Preperation Steps (by clicking this you will exit PANTRI)."
+        android:textColorHighlight="#C8D2E4"
         app:layout_constraintBottom_toBottomOf="@+id/scrollView4"
         app:layout_constraintEnd_toEndOf="@+id/Nutrients"
         app:layout_constraintHorizontal_bias="0.0"

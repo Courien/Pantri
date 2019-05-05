@@ -44,6 +44,7 @@
         android:layout_marginTop="8dp"
         android:clickable="true"
         android:text="View nutrition here"
+        android:textColorHighlight="#C8D2E4"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="@+id/textView_Meal_detail"
         app:layout_constraintHorizontal_bias="0.0"
