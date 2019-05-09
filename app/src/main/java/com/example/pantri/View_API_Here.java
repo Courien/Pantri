@@ -22,8 +22,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class View_API_Here extends AppCompatActivity implements Adapter.OnItemClickListener
-{
+public class View_API_Here extends AppCompatActivity implements Adapter.OnItemClickListener {
 
     public static String EXTRA_URL = "imageUrl";
     public static String EXTRA_MEAL = "meal";
@@ -35,12 +34,12 @@ public class View_API_Here extends AppCompatActivity implements Adapter.OnItemCl
     private RecyclerView mRecylerView;
     private Adapter mAdapter;
     private ArrayList<Item> mItemList;
+    private ArrayList<ParseNutrientsJSON> mItemNutrientList;
     private RequestQueue mRequestQueue;
     private String FoodType;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view__api__here);
 
@@ -49,36 +48,35 @@ public class View_API_Here extends AppCompatActivity implements Adapter.OnItemCl
         mRecylerView.setLayoutManager(new LinearLayoutManager(this));
 
         mItemList = new ArrayList<>();
+        mItemNutrientList = new ArrayList<>();
 
         FoodType = getIntent().getStringExtra("FoodType");
 
         mRequestQueue = Volley.newRequestQueue(this);
+
         parseJSON();
+        ParseNutrients();
 
     }
 
-    public void message (View view)
-    {
+    public void message(View view) {
         Intent firstScreen = new Intent(this, FourthScreen.class);
         startActivity(firstScreen);
     }
-    private void parseJSON()
-    {
-        String Url = "https://api.edamam.com/search?q=" + FoodType + "&app_id=8f438d16&app_key=816f5456dd70c634fd34a8c20ead557f&from=0&to=25&calories=591-722&health=alcohol-free";
+
+    private void parseJSON() {
+        String Url = "https://api.edamam.com/search?q=" + FoodType + "&app_id=8f438d16&app_key=816f5456dd70c634fd34a8c20ead557f&from=0&to=20&calories=591-722&health=alcohol-free";
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, Url, null, new Response.Listener<JSONObject>() {
             @Override
-            public void onResponse(JSONObject response)
-            {
-                try
-                {
+            public void onResponse(JSONObject response) {
+                try {
 
                     JSONArray jsonArray = response.getJSONArray("hits");
 
                     String allIngredients = "";
 
-                    for(int index = 0; index < jsonArray.length(); ++index)
-                    {
+                    for (int index = 0; index < jsonArray.length(); ++index) {
                         JSONObject hit = jsonArray.getJSONObject(index);
 
                         String meal = hit.getJSONObject("recipe").getString("label");
@@ -86,24 +84,18 @@ public class View_API_Here extends AppCompatActivity implements Adapter.OnItemCl
                         int calories = hit.getJSONObject("recipe").getInt("calories");
                         String prepingSteps = hit.getJSONObject("recipe").getString("url");
 
-                        StringBuilder nutrition = new StringBuilder();
-                        nutrition.append(hit.getJSONObject("recipe").getJSONObject("totalNutrients").getJSONObject("PROCNT").getString("label"));
-                        nutrition.append(": ");
-                        nutrition.append(hit.getJSONObject("recipe").getJSONObject("totalNutrients").getJSONObject("PROCNT").getInt("quantity"));
-                        nutrition.append(" ");
-                        nutrition.append(hit.getJSONObject("recipe").getJSONObject("totalNutrients").getJSONObject("PROCNT").getString("unit"));
 
                         JSONArray recipe = hit.getJSONObject("recipe").getJSONArray("ingredientLines");
 
 
-                        for(int index2 = 0; index2 < recipe.length(); ++index2)
-                        {
+                        for (int index2 = 0; index2 < recipe.length(); ++index2) {
                             String eachIngredient = recipe.getString(index2) + "\n";
 
                             allIngredients += eachIngredient;
                         }
 
-                        mItemList.add(new Item(imageUrl, meal, allIngredients, calories, nutrition.toString(), prepingSteps));
+
+                        mItemList.add(new Item(imageUrl, meal, allIngredients, calories, prepingSteps));
 
                         allIngredients = "";
                     }
@@ -112,19 +104,16 @@ public class View_API_Here extends AppCompatActivity implements Adapter.OnItemCl
                     mRecylerView.setAdapter(mAdapter);
                     mAdapter.setOnItemClickListener(View_API_Here.this);
 
-                } catch (JSONException e)
-                {
+                } catch (JSONException e) {
 
                     e.printStackTrace();
 
                 }
 
             }
-        }, new Response.ErrorListener()
-        {
+        }, new Response.ErrorListener() {
             @Override
-            public void onErrorResponse(VolleyError error)
-            {
+            public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
 
             }
@@ -133,21 +122,82 @@ public class View_API_Here extends AppCompatActivity implements Adapter.OnItemCl
         mRequestQueue.add(request);
     }
 
+    void ParseNutrients() {
+        String Url = "https://api.edamam.com/search?q=" + FoodType + "&app_id=8f438d16&app_key=816f5456dd70c634fd34a8c20ead557f&from=0&to=20&calories=591-722&health=alcohol-free";
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, Url, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+
+                try {
+
+                    JSONArray jsonArray = response.getJSONArray("hits");
+
+
+                    for (int index = 0; index < jsonArray.length(); ++index) {
+
+
+                        JSONObject hit = jsonArray.getJSONObject(index);
+
+
+                        StringBuilder nutrientsString = new StringBuilder();
+                        JSONArray nutrientArray = hit.getJSONObject("recipe").getJSONArray("digest");
+
+                        for (int index3 = 0; index3 < nutrientArray.length(); ++index3) {
+                            JSONObject nutrientsObject = nutrientArray.getJSONObject(index3);
+
+                            int amountOfNutrient;
+
+                            nutrientsString.append(nutrientsObject.getString("label"));
+                            nutrientsString.append(": ");
+                            amountOfNutrient = nutrientsObject.getInt("total");
+                            nutrientsString.append(amountOfNutrient);
+                            nutrientsString.append(" ");
+                            nutrientsString.append(nutrientsObject.getString("unit"));
+                            nutrientsString.append("\n");
+
+                        }
+
+                        mItemNutrientList.add(new ParseNutrientsJSON(nutrientsString.toString()));
+
+                    }
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+
+            }
+        });
+
+        mRequestQueue.add(request);
+
+
+    }
+
     @Override
-    public void onItemClick(int position)
-    {
+    public void onItemClick(int position) {
         Intent detailIntent = new Intent(this, DetailActivity.class);
 
         Item clickedItem = mItemList.get(position);
+
+        ParseNutrientsJSON clickedItemNutrients = mItemNutrientList.get(position);
 
         detailIntent.putExtra(EXTRA_URL, clickedItem.getImageURL());
         detailIntent.putExtra(EXTRA_MEAL, clickedItem.getMeal());
         detailIntent.putExtra(EXTRA_RECIPE, clickedItem.getRecipe());
         detailIntent.putExtra(EXTRA_CALORIES, clickedItem.getcalories());
-        detailIntent.putExtra(EXTRA_NUTRITION, clickedItem.getNutrition());
+        detailIntent.putExtra(EXTRA_NUTRITION, clickedItemNutrients.getNutritionValue());
         detailIntent.putExtra(EXTRA_PREPARATION_STEPS, clickedItem.getPreparationSteps());
         detailIntent.putExtra("FoodType", FoodType);
 
         startActivity(detailIntent);
     }
+
 }
