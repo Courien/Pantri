@@ -51,14 +51,9 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder>
 
         String imageUrl = currentItem.getImageURL();
         String Meal = currentItem.getMeal();
-        //String recipe = currentItem.getRecipe();
-        //int calories = currentItem.getcalories();
 
         holder.mTextViewMeal.setText(Meal);
-        //holder.mTextViewRecipe.setText("Recipe: " + recipe);
         Picasso.with(mContext).load(imageUrl).fit().centerInside().into(holder.mImageView);
-        //holder.mTextViewCalories.setText("Calories: " + calories);
-
 
     }
 
@@ -72,8 +67,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder>
 
         public ImageView mImageView;
         public TextView mTextViewMeal;
-        //public TextView mTextViewRecipe;
-        //public TextView mTextViewCalories;
 
         public ViewHolder(@NonNull View itemView)
         {
@@ -81,8 +74,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder>
 
             mImageView = itemView.findViewById(R.id.image_view);
             mTextViewMeal = itemView.findViewById(R.id.text_view_meal);
-            //mTextViewRecipe = itemView.findViewById(R.id.card_view_note);
-            //mTextViewCalories = itemView.findViewById(R.id._calories);
 
             itemView.setOnClickListener(new View.OnClickListener()
             {
