@@ -33,12 +33,13 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="97dp"
         android:layout_marginLeft="97dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="101dp"
         android:layout_marginRight="101dp"
         android:ems="10"
         android:hint="Password"
         android:inputType="textPassword"
+        android:onClick="onClick"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -56,8 +57,9 @@
         android:ems="10"
         android:hint="E-mail"
         android:inputType="textPersonName"
+        android:onClick="onClick"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -69,8 +71,24 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
         android:background="@color/colorAccent"
+        android:onClick="onClick"
         android:text="Back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/PasswordHint"
+        android:layout_width="wrap_content"
+        android:layout_height="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="Password must be at least six characters"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/password"
+        tools:visibility="visible" />
 
 </android.support.constraint.ConstraintLayout>
