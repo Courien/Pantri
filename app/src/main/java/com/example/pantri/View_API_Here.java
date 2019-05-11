@@ -6,8 +6,6 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -44,6 +42,7 @@ public class View_API_Here extends AppCompatActivity implements Adapter.OnItemCl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view__api__here);
 
+
         mRecylerView = findViewById(R.id.recycler_view);
         mRecylerView.setHasFixedSize(true);
         mRecylerView.setLayoutManager(new LinearLayoutManager(this));
@@ -60,16 +59,20 @@ public class View_API_Here extends AppCompatActivity implements Adapter.OnItemCl
 
     }
 
-    public void message(View view) {
+    public void message(View view)
+    {
         finish();
     }
 
-    private void parseJSON() {
+    private void parseJSON()
+    {
         String Url = "https://api.edamam.com/search?q=" + FoodType + "&app_id=8f438d16&app_key=816f5456dd70c634fd34a8c20ead557f&from=0&to=10&calories=591-722&health=alcohol-free";
 
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, Url, null, new Response.Listener<JSONObject>() {
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, Url, null, new Response.Listener<JSONObject>()
+        {
             @Override
-            public void onResponse(JSONObject response) {
+            public void onResponse(JSONObject response)
+            {
                 try {
 
                     JSONArray jsonArray = response.getJSONArray("hits");
@@ -111,9 +114,11 @@ public class View_API_Here extends AppCompatActivity implements Adapter.OnItemCl
                 }
 
             }
-        }, new Response.ErrorListener() {
+        }, new Response.ErrorListener()
+        {
             @Override
-            public void onErrorResponse(VolleyError error) {
+            public void onErrorResponse(VolleyError error)
+            {
                 error.printStackTrace();
 
             }
@@ -122,19 +127,23 @@ public class View_API_Here extends AppCompatActivity implements Adapter.OnItemCl
         mRequestQueue.add(request);
     }
 
-    void ParseNutrients() {
+    void ParseNutrients()
+    {
         String Url = "https://api.edamam.com/search?q=" + FoodType + "&app_id=8f438d16&app_key=816f5456dd70c634fd34a8c20ead557f&from=0&to=10&calories=591-722&health=alcohol-free";
 
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, Url, null, new Response.Listener<JSONObject>() {
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, Url, null, new Response.Listener<JSONObject>()
+        {
             @Override
-            public void onResponse(JSONObject response) {
+            public void onResponse(JSONObject response)
+            {
 
                 try {
 
                     JSONArray jsonArray = response.getJSONArray("hits");
 
 
-                    for (int index = 0; index < jsonArray.length(); ++index) {
+                    for (int index = 0; index < jsonArray.length(); ++index)
+                    {
 
 
                         JSONObject hit = jsonArray.getJSONObject(index);
@@ -143,7 +152,8 @@ public class View_API_Here extends AppCompatActivity implements Adapter.OnItemCl
                         StringBuilder nutrientsString = new StringBuilder();
                         JSONArray nutrientArray = hit.getJSONObject("recipe").getJSONArray("digest");
 
-                        for (int index3 = 0; index3 < nutrientArray.length(); ++index3) {
+                        for (int index3 = 0; index3 < nutrientArray.length(); ++index3)
+                        {
                             JSONObject nutrientsObject = nutrientArray.getJSONObject(index3);
 
                             int amountOfNutrient;
@@ -168,9 +178,11 @@ public class View_API_Here extends AppCompatActivity implements Adapter.OnItemCl
                 }
 
             }
-        }, new Response.ErrorListener() {
+        }, new Response.ErrorListener()
+        {
             @Override
-            public void onErrorResponse(VolleyError error) {
+            public void onErrorResponse(VolleyError error)
+            {
                 error.printStackTrace();
 
             }
@@ -182,7 +194,8 @@ public class View_API_Here extends AppCompatActivity implements Adapter.OnItemCl
     }
 
     @Override
-    public void onItemClick(int position) {
+    public void onItemClick(int position)
+    {
         Intent detailIntent = new Intent(this, DetailActivity.class);
 
         Item clickedItem = mItemList.get(position);
