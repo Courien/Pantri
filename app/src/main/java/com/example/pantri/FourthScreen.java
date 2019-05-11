@@ -8,11 +8,19 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
+
+
 public class FourthScreen extends AppCompatActivity {
 
     public static TextView APItext;
     private EditText FoodSearching;
     private TextView NoSearch;
+    private FirebaseFirestore dataBase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +35,7 @@ public class FourthScreen extends AppCompatActivity {
 
         FoodSearching = (EditText) findViewById(R.id.Search_Food);
 
+        dataBase = FirebaseFirestore.getInstance();
         NoSearch = (TextView) findViewById(R.id._invalidEntry);
 
         clearButton.setOnClickListener(new View.OnClickListener() {
@@ -58,6 +67,13 @@ public class FourthScreen extends AppCompatActivity {
     public void sendMessage (View view){
         Intent firstScreen = new Intent(this, SecondScreen.class);
         startActivity(firstScreen);
+    }
+
+
+    public  void messageSend(View view)
+    {
+        Map<String, Object> test = new HashMap<>();
+        test.put("test", "HI");
     }
 
 
