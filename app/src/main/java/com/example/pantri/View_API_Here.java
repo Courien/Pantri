@@ -1,11 +1,14 @@
 package com.example.pantri;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -42,6 +45,11 @@ public class View_API_Here extends AppCompatActivity implements Adapter.OnItemCl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view__api__here);
 
+        final TextView searchNotFound = (TextView) findViewById(R.id.noItemsFound);
+        searchNotFound.setTextColor(Color.TRANSPARENT);
+
+        final ProgressBar progress = findViewById(R.id.progressBar);
+
 
         mRecylerView = findViewById(R.id.recycler_view);
         mRecylerView.setHasFixedSize(true);
@@ -56,6 +64,65 @@ public class View_API_Here extends AppCompatActivity implements Adapter.OnItemCl
 
         parseJSON();
         ParseNutrients();
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                int timer = 3;
+
+                while(timer > 1)
+                {
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                    timer -= 1;
+
+                }
+
+                if(mItemList.size() < 1)
+                {
+
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            int timer = 10;//timer for no searches found message.
+
+                            while(timer > 1)
+                            {
+                                try {
+                                    Thread.sleep(1000);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+
+                                timer -= 1;
+                            }
+
+                            progress.setVisibility(View.INVISIBLE);
+
+                            if(mItemList.size() < 1)
+                            {
+                                searchNotFound.setTextColor(Color.BLACK);
+                            }
+
+
+
+                        }
+                    }).start();
+                }
+                else
+                {
+                    progress.setVisibility(View.INVISIBLE);
+                }
+
+            }
+        }).start();
+
 
     }
 
