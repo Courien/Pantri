@@ -70,12 +70,13 @@ public class FourthScreen extends AppCompatActivity {
         //API_info process = new API_info();
         //process.execute();
 
+        //}
+
         Intent View_API = new Intent(this, View_API_Here.class);
 
         View_API.putExtra("FoodType", FoodSearching.getText().toString());
 
         startActivity(View_API);
-        //}
 
     }
 

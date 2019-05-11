@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/greenback"
     android:orientation="vertical"
     tools:context=".DetailActivity">
 
@@ -44,7 +45,7 @@
         android:layout_marginTop="8dp"
         android:clickable="true"
         android:text="View nutrition here"
-        android:textColorHighlight="#C8D2E4"
+        android:textColorHighlight="#94C99B"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="@+id/textView_Meal_detail"
         app:layout_constraintHorizontal_bias="0.0"
@@ -59,11 +60,10 @@
         android:layout_marginBottom="8dp"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/textView_view_nutrition"
+        app:layout_constraintEnd_toEndOf="@+id/Preperation_Steps_detail"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/textView_view_nutrition"
-        app:layout_constraintTop_toBottomOf="@+id/textView_view_nutrition"
-        app:layout_constraintVertical_bias="0.05">
+        app:layout_constraintStart_toStartOf="@+id/Preperation_Steps_detail"
+        app:layout_constraintTop_toBottomOf="@+id/Preperation_Steps_detail">
 
 
         <TextView
@@ -76,6 +76,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:text="Recipe: "
+            android:textColor="@color/common_google_signin_btn_text_dark_focused"
             android:textSize="30sp"
             app:layout_constraintHorizontal_bias="0.02"
             app:layout_constraintStart_toStartOf="parent"
@@ -96,6 +97,19 @@
         app:layout_constraintStart_toStartOf="@+id/image_view_detail"
         app:layout_constraintTop_toTopOf="@+id/image_view_detail"
         app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/Preperation_Steps_detail"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Preperation Steps (by clicking this you will exit PANTRI)."
+        android:textColorHighlight="#94C99B"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/textView_view_nutrition"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/textView_view_nutrition"
+        app:layout_constraintTop_toBottomOf="@+id/textView_view_nutrition" />
 
 
 </android.support.constraint.ConstraintLayout>

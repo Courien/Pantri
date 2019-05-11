@@ -24,12 +24,13 @@ import java.util.ArrayList;
 
 public class View_API_Here extends AppCompatActivity implements Adapter.OnItemClickListener {
 
-    public static String EXTRA_URL = "imageUrl";
+    public static String EXTRA_IMAGE_URL = "imageUrl";
     public static String EXTRA_MEAL = "meal";
     public static String EXTRA_RECIPE = "recipe";
     public static String EXTRA_CALORIES = "calories";
     public static String EXTRA_NUTRITION = "nutrition";
-    public static String EXTRA_PREPARATION_STEPS = "preparationSteps";
+    public static String EXTRA_PREPARATION_STEPS = "prepingSteps";
+    public static String EXTRA_FOODTYPE = "foodType";
 
     private RecyclerView mRecylerView;
     private Adapter mAdapter;
@@ -60,12 +61,11 @@ public class View_API_Here extends AppCompatActivity implements Adapter.OnItemCl
     }
 
     public void message(View view) {
-        Intent firstScreen = new Intent(this, FourthScreen.class);
-        startActivity(firstScreen);
+        finish();
     }
 
     private void parseJSON() {
-        String Url = "https://api.edamam.com/search?q=" + FoodType + "&app_id=8f438d16&app_key=816f5456dd70c634fd34a8c20ead557f&from=0&to=20&calories=591-722&health=alcohol-free";
+        String Url = "https://api.edamam.com/search?q=" + FoodType + "&app_id=8f438d16&app_key=816f5456dd70c634fd34a8c20ead557f&from=0&to=10&calories=591-722&health=alcohol-free";
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, Url, null, new Response.Listener<JSONObject>() {
             @Override
@@ -123,7 +123,7 @@ public class View_API_Here extends AppCompatActivity implements Adapter.OnItemCl
     }
 
     void ParseNutrients() {
-        String Url = "https://api.edamam.com/search?q=" + FoodType + "&app_id=8f438d16&app_key=816f5456dd70c634fd34a8c20ead557f&from=0&to=20&calories=591-722&health=alcohol-free";
+        String Url = "https://api.edamam.com/search?q=" + FoodType + "&app_id=8f438d16&app_key=816f5456dd70c634fd34a8c20ead557f&from=0&to=10&calories=591-722&health=alcohol-free";
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, Url, null, new Response.Listener<JSONObject>() {
             @Override
@@ -189,13 +189,13 @@ public class View_API_Here extends AppCompatActivity implements Adapter.OnItemCl
 
         ParseNutrientsJSON clickedItemNutrients = mItemNutrientList.get(position);
 
-        detailIntent.putExtra(EXTRA_URL, clickedItem.getImageURL());
+        detailIntent.putExtra(EXTRA_IMAGE_URL, clickedItem.getImageURL());
         detailIntent.putExtra(EXTRA_MEAL, clickedItem.getMeal());
         detailIntent.putExtra(EXTRA_RECIPE, clickedItem.getRecipe());
         detailIntent.putExtra(EXTRA_CALORIES, clickedItem.getcalories());
         detailIntent.putExtra(EXTRA_NUTRITION, clickedItemNutrients.getNutritionValue());
         detailIntent.putExtra(EXTRA_PREPARATION_STEPS, clickedItem.getPreparationSteps());
-        detailIntent.putExtra("FoodType", FoodType);
+        detailIntent.putExtra(EXTRA_FOODTYPE, FoodType);
 
         startActivity(detailIntent);
     }

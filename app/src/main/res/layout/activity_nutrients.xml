@@ -4,7 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/greenback"
     tools:context=".Nutrients">
+
+    <Button
+        android:id="@+id/nutrients_back_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
+        android:text="Back"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
+        app:layout_constraintBottom_toBottomOf="@+id/scrollView4"
+        app:layout_constraintEnd_toEndOf="@+id/scrollView4"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/scrollView4"
+        app:layout_constraintTop_toTopOf="@+id/scrollView4"
+        app:layout_constraintVertical_bias="0.0" />
 
     <ScrollView
         android:id="@+id/scrollView4"
@@ -23,36 +38,14 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0">
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/Nutrients"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" />
+            android:layout_marginBottom="8dp"
+            android:text="Nutrition"
+            android:textColor="@color/common_google_signin_btn_text_dark_focused"
+            android:textSize="24sp" />
     </ScrollView>
-
-    <TextView
-        android:id="@+id/Nutrients"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Nutrition"
-        app:layout_constraintEnd_toEndOf="@+id/scrollView4"
-        app:layout_constraintHorizontal_bias="0.023"
-        app:layout_constraintStart_toStartOf="@+id/scrollView4"
-        app:layout_constraintTop_toTopOf="@+id/scrollView4" />
-
-    <TextView
-        android:id="@+id/Preperation_Steps"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:clickable="true"
-        android:text="Preperation Steps (by clicking this you will exit PANTRI)."
-        android:textColorHighlight="#C8D2E4"
-        app:layout_constraintBottom_toBottomOf="@+id/scrollView4"
-        app:layout_constraintEnd_toEndOf="@+id/Nutrients"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/Nutrients"
-        app:layout_constraintTop_toBottomOf="@+id/Nutrients"
-        app:layout_constraintVertical_bias="0.0" />
 
 </android.support.constraint.ConstraintLayout>
