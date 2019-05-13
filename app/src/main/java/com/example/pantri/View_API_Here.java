@@ -1,7 +1,10 @@
 package com.example.pantri;
 
+
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,19 +12,17 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
+import static android.graphics.Color.TRANSPARENT;
 
 public class View_API_Here extends AppCompatActivity implements Adapter.OnItemClickListener {
 
@@ -39,14 +40,17 @@ public class View_API_Here extends AppCompatActivity implements Adapter.OnItemCl
     private ArrayList<ParseNutrientsJSON> mItemNutrientList;
     private RequestQueue mRequestQueue;
     private String FoodType;
+    private String chosenHealth = "alcohol-free";
+    private int searchResultCount = 99;
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view__api__here);
 
         final TextView searchNotFound = (TextView) findViewById(R.id.noItemsFound);
-        searchNotFound.setTextColor(Color.TRANSPARENT);
+        searchNotFound.setTextColor(TRANSPARENT);
 
         final ProgressBar progress = findViewById(R.id.progressBar);
 
@@ -58,18 +62,21 @@ public class View_API_Here extends AppCompatActivity implements Adapter.OnItemCl
         mItemList = new ArrayList<>();
         mItemNutrientList = new ArrayList<>();
 
-        FoodType = getIntent().getStringExtra("FoodType");
+        FoodType = getIntent().getStringExtra(FourthScreen.PUTEXTRA_FOODTYPE);
+        chosenHealth = getIntent().getStringExtra(FourthScreen.PUTEXTRA_CHOSENHEALTH);
 
         mRequestQueue = Volley.newRequestQueue(this);
 
         parseJSON();
         ParseNutrients();
 
-        new Thread(new Runnable() {
+        new Thread(new Runnable()
+         {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void run() {
 
-                int timer = 3;
+                int timer = 4;//timer to allow everything to load to page and then check the number of items in the array.
 
                 while(timer > 1)
                 {
@@ -118,11 +125,11 @@ public class View_API_Here extends AppCompatActivity implements Adapter.OnItemCl
                 else
                 {
                     progress.setVisibility(View.INVISIBLE);
+
                 }
 
             }
         }).start();
-
 
     }
 
@@ -133,7 +140,7 @@ public class View_API_Here extends AppCompatActivity implements Adapter.OnItemCl
 
     private void parseJSON()
     {
-        String Url = "https://api.edamam.com/search?q=" + FoodType + "&app_id=8f438d16&app_key=816f5456dd70c634fd34a8c20ead557f&from=0&to=10&calories=591-722&health=alcohol-free";
+        String Url = "https://api.edamam.com/search?q=" + FoodType + "&app_id=8f438d16&app_key=816f5456dd70c634fd34a8c20ead557f&from=0&to=" + searchResultCount + "&calories=591-722&health=" + chosenHealth;
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, Url, null, new Response.Listener<JSONObject>()
         {
@@ -196,7 +203,7 @@ public class View_API_Here extends AppCompatActivity implements Adapter.OnItemCl
 
     void ParseNutrients()
     {
-        String Url = "https://api.edamam.com/search?q=" + FoodType + "&app_id=8f438d16&app_key=816f5456dd70c634fd34a8c20ead557f&from=0&to=10&calories=591-722&health=alcohol-free";
+        String Url = "https://api.edamam.com/search?q=" + FoodType + "&app_id=8f438d16&app_key=816f5456dd70c634fd34a8c20ead557f&from=0&to=" + searchResultCount + "&calories=591-722&health=" + chosenHealth;
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, Url, null, new Response.Listener<JSONObject>()
         {
