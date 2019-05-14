@@ -19,14 +19,23 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class RegisterUser extends AppCompatActivity implements View.OnClickListener{
 
     private Button buttonRegister;
     private EditText editTextPassword;
     private EditText editTextUsername;
+    private  EditText editTextDocumentName;
     private Button backButton;
     private ProgressDialog progressDialog;
+    FirebaseFirestore db;
+
+    public EditText editTextDocumentNam;
+
 
     FirebaseAuth mAuth;
     @Override
@@ -35,7 +44,7 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_register_user);
 
         mAuth = FirebaseAuth.getInstance();
-
+        db = FirebaseFirestore.getInstance();
 
         progressDialog = new ProgressDialog(this);
 
@@ -45,19 +54,26 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
         backButton = (Button) findViewById(R.id.Back);
         editTextUsername = (EditText) findViewById(R.id.username);
         editTextPassword = (EditText) findViewById(R.id.password);
-
-
+        editTextDocumentName =(EditText) findViewById(R.id.Username);
 
         buttonRegister.setOnClickListener(this);
 
     }
+    public String getNam()
+    {
+        editTextDocumentNam =(EditText) findViewById(R.id.Username);
+        String coll = editTextDocumentNam.getText().toString().trim();
+        return coll;
+    }
+
     private void registerUser(){
-        String username = editTextUsername.getText().toString().trim();
-        String password = editTextPassword.getText().toString().trim();
+        final String username = editTextUsername.getText().toString().trim();
+        final String password = editTextPassword.getText().toString().trim();
+        final String collection = editTextDocumentName.getText().toString().trim();
         final Intent firstScreen = new Intent(this, MainActivity.class);
 
 
-        if (TextUtils.isEmpty(username))
+        if (TextUtils.isEmpty(collection))
         {
             Toast.makeText(this,"enter username", Toast.LENGTH_SHORT).show();
             return;
@@ -75,8 +91,15 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful())
                         {
+                            Map<String, Object> Users = new HashMap<>();
+                            Users.put("E-Mail", username);
+                            Users.put("Password" , password);
+                            db.collection("user").document(collection).set(Users);
                             Toast.makeText(RegisterUser.this,"Registered user.", Toast.LENGTH_SHORT).show();
                             startActivity(firstScreen);
+
+
+
 
                         }
                         else   {

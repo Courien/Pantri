@@ -13,6 +13,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class FourthScreen extends AppCompatActivity {
 
     public static TextView APItext;
@@ -20,6 +25,9 @@ public class FourthScreen extends AppCompatActivity {
     private TextView NoSearch;
     private String chosenHealth = "alcohol-free";
 
+    private EditText Thing;
+    private FirebaseFirestore db;
+    private  MainActivity getuser;
     public static String PUTEXTRA_CHOSENHEALTH = "chosenHealth";
     public static  String PUTEXTRA_FOODTYPE = "Foodtype";
 
@@ -28,7 +36,7 @@ public class FourthScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fourth_screen);
-
+        db = FirebaseFirestore.getInstance();
         //APItext = (TextView) findViewById(R.id.API_info_here);
 
         Button buttonGo = (Button) findViewById(R.id.button_Go);
@@ -37,6 +45,7 @@ public class FourthScreen extends AppCompatActivity {
 
         FoodSearching = (EditText) findViewById(R.id.Search_Food);
 
+        Thing = (EditText) findViewById(R.id.Thing);
         NoSearch = (TextView) findViewById(R.id._invalidEntry);
 
         final CheckBox vegan = (CheckBox) findViewById(R.id.VeganCheckBox);
@@ -88,6 +97,21 @@ public class FourthScreen extends AppCompatActivity {
 
             }
         });
+    }
+
+    public void test( View v)
+    {
+
+        if (Thing.getText().toString().equals(""))
+        {
+            Thing.setText("Please Enter your username");
+        }
+        String thing2 = Thing.getText().toString().trim();
+
+        Map<String,Object> test = new HashMap<>();
+        test.put("test", "HI");
+        db.collection("user").document(thing2).update(test);
+
     }
 
     public void s(){
