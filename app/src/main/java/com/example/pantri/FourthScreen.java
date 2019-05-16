@@ -99,20 +99,7 @@ public class FourthScreen extends AppCompatActivity {
         });
     }
 
-    public void test( View v)
-    {
 
-        if (Thing.getText().toString().equals(""))
-        {
-            Thing.setText("Please Enter your username");
-        }
-        String thing2 = Thing.getText().toString().trim();
-
-        Map<String,Object> test = new HashMap<>();
-        test.put("test", "HI");
-        db.collection("user").document(thing2).update(test);
-
-    }
 
     public void s(){
 

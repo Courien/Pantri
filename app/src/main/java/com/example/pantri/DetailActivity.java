@@ -14,10 +14,15 @@ import android.text.style.ClickableSpan;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.example.pantri.View_API_Here.EXTRA_CALORIES;
 import static com.example.pantri.View_API_Here.EXTRA_IMAGE_URL;
@@ -28,11 +33,17 @@ import static com.example.pantri.View_API_Here.EXTRA_RECIPE;
 
 public class DetailActivity extends AppCompatActivity {
 
+
+    private EditText Thing;
+
+    FirebaseFirestore db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
+        Thing = (EditText) findViewById(R.id.Thing);
+        db = FirebaseFirestore.getInstance();
         final String imageUrl = getIntent().getStringExtra(EXTRA_IMAGE_URL);
         final String recipe = getIntent().getStringExtra(EXTRA_RECIPE);
         final String meal = getIntent().getStringExtra(EXTRA_MEAL);
@@ -135,4 +146,25 @@ public class DetailActivity extends AppCompatActivity {
         apreparation.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
+    public void test( View v)
+    {
+
+        if (Thing.getText().toString().equals(""))
+        {
+            Thing.setText("Please Enter your username");
+        }
+        String thing2 = Thing.getText().toString().trim();
+
+        Map<String,Object> test = new HashMap<>();
+        test.put("test", getIntent().getStringExtra("imageUrl"));
+        test.put("test",getIntent().getStringExtra("meal") );
+        test.put("test", getIntent().getIntExtra("calories", 0));
+        test.put("test", getIntent().getStringExtra("nutrition)"));
+        test.put("test", getIntent().getStringExtra("prepingSteps"));
+
+
+
+        db.collection("user").document(thing2).update(test);
+
+    }
 }

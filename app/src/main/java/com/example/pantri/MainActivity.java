@@ -104,6 +104,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     editTextUsername.setText(title);
                     getSignInUser();
                 }
+                if (!documentSnapshot.exists())
+                {
+                    Toast.makeText(MainActivity.this,"User not found, please try again",Toast.LENGTH_SHORT).show();
+                }
 
             }
 

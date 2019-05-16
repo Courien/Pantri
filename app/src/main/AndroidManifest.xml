@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Nutrients"></activity>
+        <activity android:name=".Nutrients" />
         <activity
             android:name=".RegisterUser"
             android:label="@string/title_activity_register_user"
