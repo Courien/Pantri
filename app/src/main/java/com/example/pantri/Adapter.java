@@ -53,7 +53,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder>
         String Meal = currentItem.getMeal();
 
         holder.mTextViewMeal.setText(Meal);
-        Picasso.with(mContext).load(imageUrl).fit().centerInside().into(holder.mImageView);
+        Picasso.get().load(imageUrl).fit().centerInside().into(holder.mImageView);
 
     }
 

@@ -42,6 +42,8 @@ public class View_API_Here extends AppCompatActivity implements Adapter.OnItemCl
     private String FoodType;
     private String chosenHealth = "alcohol-free";
     private int searchResultCount = 99;
+    private boolean finishedLoading = false;
+    private boolean itemIsClickedAlready = false;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -51,32 +53,19 @@ public class View_API_Here extends AppCompatActivity implements Adapter.OnItemCl
 
         final TextView searchNotFound = (TextView) findViewById(R.id.noItemsFound);
         searchNotFound.setTextColor(TRANSPARENT);
-
         final ProgressBar progress = findViewById(R.id.progressBar);
 
 
-        mRecylerView = findViewById(R.id.recycler_view);
-        mRecylerView.setHasFixedSize(true);
-        mRecylerView.setLayoutManager(new LinearLayoutManager(this));
 
-        mItemList = new ArrayList<>();
-        mItemNutrientList = new ArrayList<>();
-
-        FoodType = getIntent().getStringExtra(FourthScreen.PUTEXTRA_FOODTYPE);
-        chosenHealth = getIntent().getStringExtra(FourthScreen.PUTEXTRA_CHOSENHEALTH);
-
-        mRequestQueue = Volley.newRequestQueue(this);
-
-        parseJSON();
-        ParseNutrients();
+        /********************* Start runnable threads here ***********************/
 
         new Thread(new Runnable()
-         {
+        {
             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void run() {
 
-                int timer = 4;//timer to allow everything to load to page and then check the number of items in the array.
+                int timer = 6;//timer to allow everything to load to page and then check the number of items in the array.
 
                 while(timer > 1)
                 {
@@ -97,7 +86,7 @@ public class View_API_Here extends AppCompatActivity implements Adapter.OnItemCl
                         @Override
                         public void run() {
 
-                            int timer = 10;//timer for no searches found message.
+                            int timer = 8;//timer for no searches found message.
 
                             while(timer > 1)
                             {
@@ -116,6 +105,10 @@ public class View_API_Here extends AppCompatActivity implements Adapter.OnItemCl
                             {
                                 searchNotFound.setTextColor(Color.BLACK);
                             }
+                            else
+                            {
+                                finishedLoading = true;
+                            }
 
 
 
@@ -125,11 +118,31 @@ public class View_API_Here extends AppCompatActivity implements Adapter.OnItemCl
                 else
                 {
                     progress.setVisibility(View.INVISIBLE);
+                    finishedLoading = true;
 
                 }
 
             }
         }).start();
+
+        /************************* End of runnable threads ******************************/
+
+
+
+        mRecylerView = findViewById(R.id.recycler_view);
+        mRecylerView.setHasFixedSize(true);
+        mRecylerView.setLayoutManager(new LinearLayoutManager(this));
+
+        mItemList = new ArrayList<>();
+        mItemNutrientList = new ArrayList<>();
+
+        FoodType = getIntent().getStringExtra(FourthScreen.PUTEXTRA_FOODTYPE);
+        chosenHealth = getIntent().getStringExtra(FourthScreen.PUTEXTRA_CHOSENHEALTH);
+
+        mRequestQueue = Volley.newRequestQueue(this);
+
+        parseJSON();
+        ParseNutrients();
 
     }
 
@@ -270,21 +283,56 @@ public class View_API_Here extends AppCompatActivity implements Adapter.OnItemCl
     @Override
     public void onItemClick(int position)
     {
-        Intent detailIntent = new Intent(this, DetailActivity.class);
 
-        Item clickedItem = mItemList.get(position);
+        if(finishedLoading && !itemIsClickedAlready)
+        {
+            itemIsClickedAlready = true;
 
-        ParseNutrientsJSON clickedItemNutrients = mItemNutrientList.get(position);
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
 
-        detailIntent.putExtra(EXTRA_IMAGE_URL, clickedItem.getImageURL());
-        detailIntent.putExtra(EXTRA_MEAL, clickedItem.getMeal());
-        detailIntent.putExtra(EXTRA_RECIPE, clickedItem.getRecipe());
-        detailIntent.putExtra(EXTRA_CALORIES, clickedItem.getcalories());
-        detailIntent.putExtra(EXTRA_NUTRITION, clickedItemNutrients.getNutritionValue());
-        detailIntent.putExtra(EXTRA_PREPARATION_STEPS, clickedItem.getPreparationSteps());
-        detailIntent.putExtra(EXTRA_FOODTYPE, FoodType);
+                    int timer = 2;// Timer to prevent double click into one single item view.
 
-        startActivity(detailIntent);
+                    while(timer > 0)
+                    {
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+
+                        timer -= 1;
+                    }
+
+                    View_API_Here.this.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            itemIsClickedAlready = false;
+                        }
+                    });
+
+
+                }
+            }).start();
+
+            Intent detailIntent = new Intent(this, DetailActivity.class);
+
+            Item clickedItem = mItemList.get(position);
+
+            ParseNutrientsJSON clickedItemNutrients = mItemNutrientList.get(position);
+
+            detailIntent.putExtra(EXTRA_IMAGE_URL, clickedItem.getImageURL());
+            detailIntent.putExtra(EXTRA_MEAL, clickedItem.getMeal());
+            detailIntent.putExtra(EXTRA_RECIPE, clickedItem.getRecipe());
+            detailIntent.putExtra(EXTRA_CALORIES, clickedItem.getcalories());
+            detailIntent.putExtra(EXTRA_NUTRITION, clickedItemNutrients.getNutritionValue());
+            detailIntent.putExtra(EXTRA_PREPARATION_STEPS, clickedItem.getPreparationSteps());
+            detailIntent.putExtra(EXTRA_FOODTYPE, FoodType);
+
+            startActivity(detailIntent);
+        }
+
     }
 
 }

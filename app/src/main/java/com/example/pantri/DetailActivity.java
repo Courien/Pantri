@@ -9,7 +9,6 @@ import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
-import android.text.method.MovementMethod;
 import android.text.style.ClickableSpan;
 import android.view.View;
 import android.webkit.WebView;
@@ -59,6 +58,7 @@ public class DetailActivity extends AppCompatActivity {
             public void onClick(View v)
             {
 
+
                 finish();
             }
         });
@@ -70,7 +70,7 @@ public class DetailActivity extends AppCompatActivity {
         TextView textViewRecipe = findViewById(R.id.textView_recipe_detail);
         TextView preparation = (TextView) findViewById(R.id.Preperation_Steps_detail);
 
-        Picasso.with(this).load(imageUrl).fit().centerInside().into(imageView);
+        Picasso.get().load(imageUrl).fit().centerInside().into(imageView);
         textViewMeal.setText(meal);
         textViewRecipe.setText("Recipe: " + recipe);
         preparation.setText(prepingSteps);
