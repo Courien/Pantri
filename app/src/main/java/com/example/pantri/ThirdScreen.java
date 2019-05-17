@@ -17,6 +17,11 @@ import android.widget.Toast;
 
 public class ThirdScreen extends AppCompatActivity {
 
+    double CalInfo;
+    int HeightToInt;
+    int Height2Tointt;
+    int AgeInt;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,28 +94,30 @@ public class ThirdScreen extends AppCompatActivity {
 
             }
 
-            int HeightToInt = Integer.parseInt(Height.getText().toString());
+            HeightToInt = Integer.parseInt(Height.getText().toString());
             if (HeightToInt > 7)
             {
                 HeightToInt = 7;
                 Height.setText(Integer.toString(HeightToInt));
             }
-            int Height2Tointt = Integer.parseInt(Height2.getText().toString());
+            Height2Tointt = Integer.parseInt(Height2.getText().toString());
 
             if (Height2Tointt >11)
             {
                 Height2Tointt = 11;
                 Height2.setText(Integer.toString(Height2Tointt));
             }
-            int AgeInt = Integer.parseInt(Age.getText().toString());
+            AgeInt = Integer.parseInt(Age.getText().toString());
 
             if (AgeInt >100)
             {
                 AgeInt = 100;
                 Age.setText(Integer.toString(AgeInt));
             }
-            double CalInfo = 66 + (6.23 * WeightToInt) + (12.7 * ((HeightToInt * 12) + Height2Tointt)) - (6.8 * AgeInt);
-            CalorieInfo.setText(Double.toString(Math.floor((CalInfo * 100) / 100)));
+            CalInfo = (WeightToInt * 6.23) + ((HeightToInt * 12 + Height2Tointt) * 12.7) - (AgeInt * 6.8) + 66;
+            int CaloriesNeededFOrMen = (int)CalInfo;
+            String CaloriesNeededForMenString = CaloriesNeededFOrMen + "";
+            CalorieInfo.setText(CaloriesNeededForMenString);
             Carbs.setText(View1);
             Fats.setText(View1);
             Viewer.setText(View);
@@ -133,6 +140,7 @@ public class ThirdScreen extends AppCompatActivity {
 
         EditText Weight = (EditText) findViewById(R.id.weight);
 
+
         if (Weight.getText() != null) {
 
           try
@@ -146,19 +154,34 @@ public class ThirdScreen extends AppCompatActivity {
           }
             int WeighttoINt = Integer.parseInt(Weight.getText().toString());
 
+            CalInfo = (WeighttoINt * 6.23) + ((HeightToInt * 12 + Height2Tointt) * 12.7) - (AgeInt * 6.8) + 66;
+
             TextView Protien = (TextView) findViewById(R.id.result);
             TextView Carbs = (TextView) findViewById(R.id.result2);
             TextView Fats = (TextView) findViewById(R.id.result3);
             TextView Viewer1 = (TextView) findViewById(R.id.identiefier);
             TextView Viewer2 = (TextView) findViewById(R.id.identifier2);
             TextView Viewer3 = (TextView) findViewById(R.id.identeifier);
-            double Protienintake = (WeighttoINt * 4) * .36;
-            double Fatintake = (WeighttoINt * 9) * .30;
-            double CarbIntake = (WeighttoINt * 4) * .45;
-            int carbtoint = (int)CarbIntake;
+            double Protienintake = (WeighttoINt / 2.2) * .8;
+            double LowFatIntake = (CalInfo * 0.20) / 9;
+            double HighFatIntake = (CalInfo * .35) /9;
+
+            double proteinInCaloriesForMen = Protienintake * 4;
+            double lowFatsInCaloriesForMen = LowFatIntake * 9;
+            double highFatsInCaloriesForMen = HighFatIntake * 9;
+
+            double minCarbsInGramssNeededForMen = ((CalInfo - (proteinInCaloriesForMen + lowFatsInCaloriesForMen))) / 4;
+            double maxCarbsInGramsNeededForMen = ((CalInfo - (proteinInCaloriesForMen + highFatsInCaloriesForMen))) / 4;
+
+            double maxCarbIntake = minCarbsInGramssNeededForMen;
+            double minCarbIntake = maxCarbsInGramsNeededForMen;
+
+            String rangeOfCarbIntakeForMenNeeded = (int)minCarbIntake + " - " + (int)maxCarbIntake;
+            String rangeOfFatNeededForMen = (int)LowFatIntake + " - " + (int)HighFatIntake;
+
             Protien.setText(String.format("%.0f", Protienintake));
-            Carbs.setText(String.format("%.0f", CarbIntake));
-            Fats.setText(String.format("%.0f", Fatintake));
+            Carbs.setText(rangeOfCarbIntakeForMenNeeded);
+            Fats.setText(rangeOfFatNeededForMen);
             Viewer1.setText(View);
             Viewer2.setText(View1);
             Viewer3.setText(View2);
