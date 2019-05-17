@@ -312,7 +312,7 @@
     <Button
         android:id="@+id/clearButton"
         style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="61dp"
+        android:layout_width="64dp"
         android:layout_height="43dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"

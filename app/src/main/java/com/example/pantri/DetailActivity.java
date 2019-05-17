@@ -10,6 +10,7 @@ import android.text.Spanned;
 import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.Button;
@@ -33,7 +34,7 @@ import static com.example.pantri.View_API_Here.EXTRA_RECIPE;
 public class DetailActivity extends AppCompatActivity {
 
 
-    private EditText Thing;
+    //private EditText Thing;
 
     FirebaseFirestore db;
     @Override
@@ -41,7 +42,7 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
-        Thing = (EditText) findViewById(R.id.Thing);
+        //Thing = (EditText) findViewById(R.id.Thing);
         db = FirebaseFirestore.getInstance();
         final String imageUrl = getIntent().getStringExtra(EXTRA_IMAGE_URL);
         final String recipe = getIntent().getStringExtra(EXTRA_RECIPE);
@@ -117,7 +118,10 @@ public class DetailActivity extends AppCompatActivity {
 
     public void SpannablePrepingStepsLink(final String aprepingSteps, TextView apreparation)
     {
-        String clickableWords = "Preperation Steps (by clicking this you will exit PANTRI).";
+        String clickableWords = "Preperation Steps (by clicking this link you will EXIT PANTRI).";
+
+        ForegroundColorSpan exitColor = new ForegroundColorSpan(Color.RED);
+
         SpannableString spanClickableWords = new SpannableString(clickableWords);
 
         ClickableSpan clickableSpan1 = new ClickableSpan() {
@@ -141,12 +145,14 @@ public class DetailActivity extends AppCompatActivity {
             }
         };
 
-        spanClickableWords.setSpan(clickableSpan1, 0, 58, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        spanClickableWords.setSpan(clickableSpan1, 0, 63, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spanClickableWords.setSpan(exitColor, 50, 54, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         apreparation.setText(spanClickableWords);
         apreparation.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
-    public void test( View v)
+    /*public void test( View v)
     {
 
         if (Thing.getText().toString().equals(""))
@@ -166,5 +172,5 @@ public class DetailActivity extends AppCompatActivity {
 
         db.collection("user").document(thing2).update(test);
 
-    }
+    }*/
 }

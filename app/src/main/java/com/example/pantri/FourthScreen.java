@@ -45,7 +45,7 @@ public class FourthScreen extends AppCompatActivity {
 
         FoodSearching = (EditText) findViewById(R.id.Search_Food);
 
-        Thing = (EditText) findViewById(R.id.Thing);
+        //Thing = (EditText) findViewById(R.id.Thing);
         NoSearch = (TextView) findViewById(R.id._invalidEntry);
 
         final CheckBox vegan = (CheckBox) findViewById(R.id.VeganCheckBox);

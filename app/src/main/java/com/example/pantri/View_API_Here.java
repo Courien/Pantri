@@ -65,7 +65,7 @@ public class View_API_Here extends AppCompatActivity implements Adapter.OnItemCl
             @Override
             public void run() {
 
-                int timer = 6;//timer to allow everything to load to page and then check the number of items in the array.
+                int timer = 7;//timer to allow everything to load to page and then check the number of items in the array.
 
                 while(timer > 1)
                 {
@@ -86,7 +86,7 @@ public class View_API_Here extends AppCompatActivity implements Adapter.OnItemCl
                         @Override
                         public void run() {
 
-                            int timer = 8;//timer for no searches found message.
+                            int timer = 7;//timer for no searches found message.
 
                             while(timer > 1)
                             {
