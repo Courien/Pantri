@@ -50,7 +50,7 @@
         android:layout_marginLeft="76dp"
         android:background="@color/colorAccent"
         android:onClick="sendMessage"
-        android:text="Calorie Calculator"
+        android:text="Daily Intake Calculator"
         app:layout_constraintBottom_toTopOf="@+id/guideline5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline3"

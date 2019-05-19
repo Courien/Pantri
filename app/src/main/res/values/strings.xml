@@ -25,4 +25,10 @@
 
     </string-array>
     <string name="title_activity_register_user">RegisterUser</string>
+
+    <string-array name="chooseGender">
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
+
 </resources>

@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import static com.example.pantri.View_API_Here.EXTRA_CALORIES;
 import static com.example.pantri.View_API_Here.EXTRA_NUTRITION;
 
 public class Nutrients extends AppCompatActivity {
@@ -16,10 +17,11 @@ public class Nutrients extends AppCompatActivity {
         setContentView(R.layout.activity_nutrients);
 
         final String nutrition = getIntent().getStringExtra(EXTRA_NUTRITION);
+        int calories = getIntent().getIntExtra(EXTRA_CALORIES, 0);
 
 
         TextView nutrientText = (TextView) findViewById(R.id. Nutrients);
-        nutrientText.setText(nutrition);
+        nutrientText.setText(nutrition + "\nCalories: " + calories);
 
 
         Button backButton = (Button) findViewById(R.id.nutrients_back_button);
