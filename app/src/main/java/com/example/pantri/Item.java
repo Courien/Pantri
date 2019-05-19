@@ -7,14 +7,16 @@ public class Item
     private String mrecipe;
     private int mcalories;
     private String mPrepingSteps;
+    private int mservingSize;
 
-    public Item(String imageUrl, String meal, String recipe, int calories, String prepingSteps)
+    public Item(String imageUrl, String meal, String recipe, int calories, String prepingSteps, int servingSize)
     {
         mIMageUrl = imageUrl;
         mMeal = meal;
         mrecipe = recipe;
         mcalories = calories;
         mPrepingSteps = prepingSteps;
+        mservingSize = servingSize;
 
     }
 
@@ -42,6 +44,11 @@ public class Item
     public String getPreparationSteps()
     {
         return mPrepingSteps;
+    }
+
+    public int getServingSize()
+    {
+        return mservingSize;
     }
 
 

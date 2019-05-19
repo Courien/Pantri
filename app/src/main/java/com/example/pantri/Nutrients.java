@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import static com.example.pantri.View_API_Here.EXTRA_CALORIES;
 import static com.example.pantri.View_API_Here.EXTRA_NUTRITION;
+import static com.example.pantri.View_API_Here.EXTRA_SERVING_SIZE;
 
 public class Nutrients extends AppCompatActivity {
 
@@ -18,10 +19,11 @@ public class Nutrients extends AppCompatActivity {
 
         final String nutrition = getIntent().getStringExtra(EXTRA_NUTRITION);
         int calories = getIntent().getIntExtra(EXTRA_CALORIES, 0);
-
+        int servingSize = getIntent().getIntExtra(EXTRA_SERVING_SIZE, 0);
+        int perServingCalories = calories / servingSize;
 
         TextView nutrientText = (TextView) findViewById(R.id. Nutrients);
-        nutrientText.setText(nutrition + "\nCalories: " + calories);
+        nutrientText.setText("Per One Serving size:" + "\n" + "Calories: " + perServingCalories + "\n" + "\n" + nutrition);
 
 
         Button backButton = (Button) findViewById(R.id.nutrients_back_button);

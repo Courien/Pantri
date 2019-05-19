@@ -14,15 +14,11 @@ import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import static com.example.pantri.View_API_Here.EXTRA_CALORIES;
 import static com.example.pantri.View_API_Here.EXTRA_IMAGE_URL;
@@ -30,6 +26,7 @@ import static com.example.pantri.View_API_Here.EXTRA_MEAL;
 import static com.example.pantri.View_API_Here.EXTRA_NUTRITION;
 import static com.example.pantri.View_API_Here.EXTRA_PREPARATION_STEPS;
 import static com.example.pantri.View_API_Here.EXTRA_RECIPE;
+import static com.example.pantri.View_API_Here.EXTRA_SERVING_SIZE;
 
 public class DetailActivity extends AppCompatActivity {
 
@@ -43,13 +40,14 @@ public class DetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail);
 
         //Thing = (EditText) findViewById(R.id.Thing);
-        db = FirebaseFirestore.getInstance();
+        //db = FirebaseFirestore.getInstance();
         final String imageUrl = getIntent().getStringExtra(EXTRA_IMAGE_URL);
         final String recipe = getIntent().getStringExtra(EXTRA_RECIPE);
         final String meal = getIntent().getStringExtra(EXTRA_MEAL);
         final int calories = getIntent().getIntExtra(EXTRA_CALORIES, 0);
         final String nutrition = getIntent().getStringExtra(EXTRA_NUTRITION);
         final String prepingSteps = getIntent().getStringExtra(EXTRA_PREPARATION_STEPS);
+        int servingSize = getIntent().getIntExtra(EXTRA_SERVING_SIZE, 0);
 
 
         final Button backButton = (Button) findViewById(R.id.BackButton_detail);
@@ -58,8 +56,6 @@ public class DetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-
-
                 finish();
             }
         });
@@ -73,17 +69,16 @@ public class DetailActivity extends AppCompatActivity {
 
         Picasso.get().load(imageUrl).fit().centerInside().into(imageView);
         textViewMeal.setText(meal);
-        textViewRecipe.setText("Recipe: " + recipe);
-        preparation.setText(prepingSteps);
+        textViewRecipe.setText("Serving size: " + servingSize + "\n" + "\n" + "Recipe\t(If possible, scroll down to view entire recipe):" + "\n" + "\n" + recipe);
 
 
-        SpannableNutrientsLink(textViewNutrition, nutrition, calories);
-        SpannablePrepingStepsLink(prepingSteps, preparation);
+        SpannableNutrientsLink(textViewNutrition, nutrition, calories, servingSize);
+        SpannablePrepingStepsLink(preparation, prepingSteps, imageUrl, recipe, meal, calories, nutrition, servingSize);
     }
 
 
     // Create spannable string methods
-    public void SpannableNutrientsLink(TextView atextViewNutrition, final String anutrition, final int acalories)
+    public void SpannableNutrientsLink(TextView atextViewNutrition, final String anutrition, final int acalories, final int servingSize)
     {
         SpannableString nutritionSpanString = new SpannableString(atextViewNutrition.getText());
 
@@ -96,7 +91,7 @@ public class DetailActivity extends AppCompatActivity {
 
                 goToNutrients.putExtra(EXTRA_NUTRITION, anutrition);
                 goToNutrients.putExtra(EXTRA_CALORIES, acalories);
-
+                goToNutrients.putExtra(EXTRA_SERVING_SIZE, servingSize);
 
                 startActivity(goToNutrients);
             }
@@ -116,7 +111,7 @@ public class DetailActivity extends AppCompatActivity {
     }
 
 
-    public void SpannablePrepingStepsLink(final String aprepingSteps, TextView apreparation)
+    public void SpannablePrepingStepsLink(final TextView apreparation, final String prepingSteps, final String imageUrl, final String recipe, final String meal, final int calories, final String nutrition, final int servingSize)
     {
         String clickableWords = "Preperation Steps (by clicking this link you will EXIT PANTRI).";
 
@@ -132,7 +127,21 @@ public class DetailActivity extends AppCompatActivity {
 
                 setContentView(goToWeb);
 
-                goToWeb.loadUrl(aprepingSteps);
+                goToWeb.loadUrl(prepingSteps);
+
+                finish();
+
+                Intent backToDetailView = new Intent(DetailActivity.this, DetailActivity.class);
+
+                backToDetailView.putExtra(EXTRA_PREPARATION_STEPS, prepingSteps);
+                backToDetailView.putExtra(EXTRA_IMAGE_URL, imageUrl);
+                backToDetailView.putExtra(EXTRA_RECIPE, recipe);
+                backToDetailView.putExtra(EXTRA_MEAL, meal);
+                backToDetailView.putExtra(EXTRA_CALORIES, calories);
+                backToDetailView.putExtra(EXTRA_NUTRITION, nutrition);
+                backToDetailView.putExtra(EXTRA_SERVING_SIZE, servingSize);
+
+                startActivity(backToDetailView);
             }
 
             @Override

@@ -33,6 +33,7 @@ public class View_API_Here extends AppCompatActivity implements Adapter.OnItemCl
     public static String EXTRA_NUTRITION = "nutrition";
     public static String EXTRA_PREPARATION_STEPS = "prepingSteps";
     public static String EXTRA_FOODTYPE = "foodType";
+    public static String EXTRA_SERVING_SIZE = "servings";
 
     private RecyclerView mRecylerView;
     private Adapter mAdapter;
@@ -173,6 +174,7 @@ public class View_API_Here extends AppCompatActivity implements Adapter.OnItemCl
                         String imageUrl = hit.getJSONObject("recipe").getString("image");
                         int calories = hit.getJSONObject("recipe").getInt("calories");
                         String prepingSteps = hit.getJSONObject("recipe").getString("url");
+                        int servingSize = hit.getJSONObject("recipe").getInt("yield");
 
 
                         JSONArray recipe = hit.getJSONObject("recipe").getJSONArray("ingredientLines");
@@ -185,7 +187,7 @@ public class View_API_Here extends AppCompatActivity implements Adapter.OnItemCl
                         }
 
 
-                        mItemList.add(new Item(imageUrl, meal, allIngredients, calories, prepingSteps));
+                        mItemList.add(new Item(imageUrl, meal, allIngredients, calories, prepingSteps, servingSize));
 
                         allIngredients = "";
                     }
@@ -238,6 +240,7 @@ public class View_API_Here extends AppCompatActivity implements Adapter.OnItemCl
 
                         StringBuilder nutrientsString = new StringBuilder();
                         JSONArray nutrientArray = hit.getJSONObject("recipe").getJSONArray("digest");
+                        int servingSize = hit.getJSONObject("recipe").getInt("yield");
 
                         for (int index3 = 0; index3 < nutrientArray.length(); ++index3)
                         {
@@ -247,7 +250,8 @@ public class View_API_Here extends AppCompatActivity implements Adapter.OnItemCl
 
                             nutrientsString.append(nutrientsObject.getString("label"));
                             nutrientsString.append(": ");
-                            amountOfNutrient = nutrientsObject.getInt("total");
+                            int totalNutrient = nutrientsObject.getInt("total");
+                            amountOfNutrient = totalNutrient / servingSize;
                             nutrientsString.append(amountOfNutrient);
                             nutrientsString.append(" ");
                             nutrientsString.append(nutrientsObject.getString("unit"));
@@ -329,6 +333,7 @@ public class View_API_Here extends AppCompatActivity implements Adapter.OnItemCl
             detailIntent.putExtra(EXTRA_NUTRITION, clickedItemNutrients.getNutritionValue());
             detailIntent.putExtra(EXTRA_PREPARATION_STEPS, clickedItem.getPreparationSteps());
             detailIntent.putExtra(EXTRA_FOODTYPE, FoodType);
+            detailIntent.putExtra(EXTRA_SERVING_SIZE, clickedItem.getServingSize());
 
             startActivity(detailIntent);
         }
