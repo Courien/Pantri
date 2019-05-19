@@ -63,10 +63,13 @@ public class DetailActivity extends AppCompatActivity {
 
         ImageView imageView = findViewById(R.id.image_view_detail);
         TextView textViewMeal = findViewById(R.id.textView_Meal_detail);
-        TextView textViewNutrition = (TextView) findViewById(R.id.textView_view_nutrition);
+        TextView textViewNutrition = findViewById(R.id.textView_view_nutrition);
         TextView textViewRecipe = findViewById(R.id.textView_recipe_detail);
-        TextView preparation = (TextView) findViewById(R.id.Preperation_Steps_detail);
+        TextView preparation = findViewById(R.id.Preperation_Steps_detail);
+        TextView copyPreparationLink = findViewById(R.id._copyLink);
 
+
+        copyPreparationLink.setText("Trouble with viewing steps? Copy and paste link from here: " + prepingSteps);
         Picasso.get().load(imageUrl).fit().centerInside().into(imageView);
         textViewMeal.setText(meal);
         textViewRecipe.setText("Serving size: " + servingSize + "\n" + "\n" + "Recipe\t(If possible, scroll down to view entire recipe):" + "\n" + "\n" + recipe);
