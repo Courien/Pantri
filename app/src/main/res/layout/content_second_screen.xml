@@ -20,7 +20,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:onClick="send"
-        android:text="Back"
+        android:text="Logout"
         android:textColor="@android:color/background_dark"
         android:visibility="visible"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
