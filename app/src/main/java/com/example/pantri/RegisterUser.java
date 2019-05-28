@@ -16,9 +16,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
@@ -82,9 +85,35 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
         {  Toast.makeText(this,"enter password", Toast.LENGTH_SHORT).show();
             return;
         }
+        db.collection("user").document(collection).get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        if (documentSnapshot.exists())
+                        {
+                            Toast.makeText(RegisterUser.this,"User Already Registered, please try a different username.",Toast.LENGTH_SHORT).show();
+                        }
+                        if (!documentSnapshot.exists())
+                        {
+                            signin(username,password,collection,firstScreen);
+
+                        }
+
+                    }
+
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(RegisterUser.this,"User not found, please try again",Toast.LENGTH_SHORT).show();
+
+            }
+        });
 
 
 
+    }
+    public void signin(final String username, final String password, final String collection, final Intent firstScreen)
+    {
         mAuth.createUserWithEmailAndPassword(username,password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -108,8 +137,8 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
                         }
                     }
                 });
-
     }
+
 
     @Override
     public void onClick(View v) {
