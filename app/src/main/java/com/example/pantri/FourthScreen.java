@@ -1,8 +1,6 @@
 package com.example.pantri;
 
-import android.content.Context;
 import android.content.Intent;
-import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -13,21 +11,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.firestore.FirebaseFirestore;
-
-import java.util.HashMap;
-import java.util.Map;
-
 public class FourthScreen extends AppCompatActivity {
 
     public static TextView APItext;
     private EditText FoodSearching;
     private TextView NoSearch;
     private String chosenHealth = "alcohol-free";
-
-    private EditText Thing;
-    private FirebaseFirestore db;
-    private  MainActivity getuser;
     public static String PUTEXTRA_CHOSENHEALTH = "chosenHealth";
     public static  String PUTEXTRA_FOODTYPE = "Foodtype";
 
@@ -36,19 +25,17 @@ public class FourthScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fourth_screen);
-        db = FirebaseFirestore.getInstance();
         //APItext = (TextView) findViewById(R.id.API_info_here);
 
-        Button buttonGo = (Button) findViewById(R.id.button_Go);
+        Button buttonGo = findViewById(R.id.button_Go);
 
-        Button clearButton = (Button) findViewById(R.id.clearButton);
+        Button clearButton = findViewById(R.id.clearButton);
 
-        FoodSearching = (EditText) findViewById(R.id.Search_Food);
+        FoodSearching = findViewById(R.id.Search_Food);
 
-        //Thing = (EditText) findViewById(R.id.Thing);
-        NoSearch = (TextView) findViewById(R.id._invalidEntry);
+        NoSearch = findViewById(R.id._invalidEntry);
 
-        final CheckBox vegan = (CheckBox) findViewById(R.id.VeganCheckBox);
+        final CheckBox vegan = findViewById(R.id.VeganCheckBox);
 
         final Toast veganNote = Toast.makeText(getApplicationContext(), "This modifies most search results to vegan-friendly foods.", Toast.LENGTH_LONG);
         veganNote.setGravity(Gravity.TOP, 15, 240);
@@ -86,15 +73,8 @@ public class FourthScreen extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-               // if(FoodSearching.getText().toString().equals("") && !vegan.isChecked())
-                //{
-                   // NoSearch.setText("Invalid entry");
-                //}
-                //else
-                //{
-                    StartSearch(v);
-                //}
 
+                StartSearch(v);
             }
         });
     }

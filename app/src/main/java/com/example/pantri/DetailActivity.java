@@ -17,7 +17,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 
 import static com.example.pantri.View_API_Here.EXTRA_CALORIES;
@@ -30,17 +29,13 @@ import static com.example.pantri.View_API_Here.EXTRA_SERVING_SIZE;
 
 public class DetailActivity extends AppCompatActivity {
 
+    private boolean itemIsClickedAlready = false;
 
-    //private EditText Thing;
-
-    FirebaseFirestore db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
-        //Thing = (EditText) findViewById(R.id.Thing);
-        //db = FirebaseFirestore.getInstance();
         final String imageUrl = getIntent().getStringExtra(EXTRA_IMAGE_URL);
         final String recipe = getIntent().getStringExtra(EXTRA_RECIPE);
         final String meal = getIntent().getStringExtra(EXTRA_MEAL);
@@ -50,7 +45,7 @@ public class DetailActivity extends AppCompatActivity {
         int servingSize = getIntent().getIntExtra(EXTRA_SERVING_SIZE, 0);
 
 
-        final Button backButton = (Button) findViewById(R.id.BackButton_detail);
+        final Button backButton = findViewById(R.id.BackButton_detail);
         backButton.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -90,13 +85,51 @@ public class DetailActivity extends AppCompatActivity {
             @Override
             public void onClick(@NonNull View widget)
             {
-                Intent goToNutrients = new Intent(DetailActivity.this, Nutrients.class);
+                /**************************Prevent double clicking into nutrition *************************/
 
-                goToNutrients.putExtra(EXTRA_NUTRITION, anutrition);
-                goToNutrients.putExtra(EXTRA_CALORIES, acalories);
-                goToNutrients.putExtra(EXTRA_SERVING_SIZE, servingSize);
+                if(!itemIsClickedAlready) {
+                    itemIsClickedAlready = true;
 
-                startActivity(goToNutrients);
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            int timer = 2;// Timer to prevent double click into one single item view.
+
+                            while (timer > 0) {
+                                try {
+                                    Thread.sleep(1000);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+
+                                timer -= 1;
+                            }
+
+                            DetailActivity.this.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    itemIsClickedAlready = false;
+                                }
+                            });
+
+
+                        }
+                    }).start();
+
+
+                    /*****************************************************************************************/
+
+
+                    Intent goToNutrients = new Intent(DetailActivity.this, Nutrients.class);
+
+                    goToNutrients.putExtra(EXTRA_NUTRITION, anutrition);
+                    goToNutrients.putExtra(EXTRA_CALORIES, acalories);
+                    goToNutrients.putExtra(EXTRA_SERVING_SIZE, servingSize);
+
+                    startActivity(goToNutrients);
+
+                }
             }
 
             @Override
@@ -108,7 +141,7 @@ public class DetailActivity extends AppCompatActivity {
                 ds.setColor(Color.BLUE);
             }
         };
-        nutritionSpanString.setSpan(clickableNutrition, 0, 19, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        nutritionSpanString.setSpan(clickableNutrition, 0, 19, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
         atextViewNutrition.setText(nutritionSpanString);
         atextViewNutrition.setMovementMethod(LinkMovementMethod.getInstance());
     }
@@ -116,7 +149,7 @@ public class DetailActivity extends AppCompatActivity {
 
     public void SpannablePrepingStepsLink(final TextView apreparation, final String prepingSteps, final String imageUrl, final String recipe, final String meal, final int calories, final String nutrition, final int servingSize)
     {
-        String clickableWords = "Preperation Steps (by clicking this link you will EXIT PANTRI).";
+        String clickableWords = "Preperation Steps (by clicking this link you will EXIT PANTRI). ";
 
         ForegroundColorSpan exitColor = new ForegroundColorSpan(Color.RED);
 
@@ -128,23 +161,7 @@ public class DetailActivity extends AppCompatActivity {
             {
                 WebView goToWeb = new WebView(DetailActivity.this);
 
-                setContentView(goToWeb);
-
                 goToWeb.loadUrl(prepingSteps);
-
-                finish();
-
-                Intent backToDetailView = new Intent(DetailActivity.this, DetailActivity.class);
-
-                backToDetailView.putExtra(EXTRA_PREPARATION_STEPS, prepingSteps);
-                backToDetailView.putExtra(EXTRA_IMAGE_URL, imageUrl);
-                backToDetailView.putExtra(EXTRA_RECIPE, recipe);
-                backToDetailView.putExtra(EXTRA_MEAL, meal);
-                backToDetailView.putExtra(EXTRA_CALORIES, calories);
-                backToDetailView.putExtra(EXTRA_NUTRITION, nutrition);
-                backToDetailView.putExtra(EXTRA_SERVING_SIZE, servingSize);
-
-                startActivity(backToDetailView);
             }
 
             @Override
@@ -158,31 +175,10 @@ public class DetailActivity extends AppCompatActivity {
         };
 
 
-        spanClickableWords.setSpan(clickableSpan1, 0, 63, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spanClickableWords.setSpan(clickableSpan1, 0, 63, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
         spanClickableWords.setSpan(exitColor, 50, 54, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         apreparation.setText(spanClickableWords);
         apreparation.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
-    /*public void test( View v)
-    {
-
-        if (Thing.getText().toString().equals(""))
-        {
-            Thing.setText("Please Enter your username");
-        }
-        String thing2 = Thing.getText().toString().trim();
-
-        Map<String,Object> test = new HashMap<>();
-        test.put("test", getIntent().getStringExtra("imageUrl"));
-        test.put("test",getIntent().getStringExtra("meal") );
-        test.put("test", getIntent().getIntExtra("calories", 0));
-        test.put("test", getIntent().getStringExtra("nutrition)"));
-        test.put("test", getIntent().getStringExtra("prepingSteps"));
-
-
-
-        db.collection("user").document(thing2).update(test);
-
-    }*/
 }

@@ -22,11 +22,11 @@ public class Nutrients extends AppCompatActivity {
         int servingSize = getIntent().getIntExtra(EXTRA_SERVING_SIZE, 0);
         int perServingCalories = calories / servingSize;
 
-        TextView nutrientText = (TextView) findViewById(R.id. Nutrients);
+        TextView nutrientText = findViewById(R.id. Nutrients);
         nutrientText.setText("Per One Serving size:" + "\n" + "Calories: " + perServingCalories + "\n" + "\n" + nutrition);
 
 
-        Button backButton = (Button) findViewById(R.id.nutrients_back_button);
+        Button backButton = findViewById(R.id.nutrients_back_button);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

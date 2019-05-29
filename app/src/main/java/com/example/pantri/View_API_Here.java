@@ -52,7 +52,7 @@ public class View_API_Here extends AppCompatActivity implements Adapter.OnItemCl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view__api__here);
 
-        final TextView searchNotFound = (TextView) findViewById(R.id.noItemsFound);
+        final TextView searchNotFound = findViewById(R.id.noItemsFound);
         searchNotFound.setTextColor(TRANSPARENT);
         final ProgressBar progress = findViewById(R.id.progressBar);
 

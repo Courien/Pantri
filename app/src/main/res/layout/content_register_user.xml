@@ -8,7 +8,7 @@
     tools:context=".RegisterUser"
     tools:showIn="@layout/activity_register_user"
     android:background="@drawable/greenback">
-    >
+
 
     <Button
         android:id="@+id/register"
@@ -34,7 +34,7 @@
         android:layout_marginStart="97dp"
         android:layout_marginLeft="97dp"
         android:layout_marginTop="36dp"
-        android:maxLength=""
+        android:maxLength="20"
         android:layout_marginEnd="101dp"
         android:layout_marginRight="101dp"
         android:ems="10"
